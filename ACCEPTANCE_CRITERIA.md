@@ -8,7 +8,7 @@ Semua contoh memakai organisasi/ruangan fiktif. Kriteria kritis harus diuji mela
 | --- | --- | --- |
 | AC-01 | FR-01/02 | Pengunjung tanpa login melihat 12 bulan periode terpilih dan detail bulan; filter ormawa memengaruhi daftar serta hitungan |
 | AC-02 | FR-03 | PIC memasukkan proker hanya-bulan; kalender tidak menampilkan tanggal pasti rekaan |
-| AC-03 | FR-04, A-01 | Satu proker punya dua jadwal dalam bulan sama dan satu jadwal bulan berikutnya; hitungan unik satu pada masing-masing bulan |
+| AC-03 | FR-04, D-46 | Satu proker punya dua jadwal dalam bulan sama dan satu jadwal bulan berikutnya; hitungan pelaksanaan unik satu pada masing-masing bulan |
 | AC-04 | FR-05 | Kolaborasi tercatat sekali, semua penyelenggara terlihat, hanya PIC pemilik dapat mengubah |
 | AC-05 | BR-05 | Dua proker pada waktu sama boleh tersimpan; tidak ada blok konflik SDM |
 | AC-06 | FR-06/07 | Rencana ruangan baru langsung terlihat publik, label belum diajukan, lalu PIC dapat melaporkan pending/approved tanpa unggah bukti |
@@ -26,7 +26,7 @@ Semua contoh memakai organisasi/ruangan fiktif. Kriteria kritis harus diuji mela
 | AC-18 | BR-19 | Cron dijalankan ulang setelah sebagian pekerjaan selesai; tidak ada pembatalan/audit ganda |
 | AC-19 | BR-17 | Tidak ada pengingat otomatis; aturan 7 hari dan waktu kedaluwarsa terlihat saat membuat/mengelola rencana |
 | AC-20 | BR-21 | Pemakaian approved dibuatkan pengganti nonberirisan; slot lama tetap sampai PIC membatalkannya; tidak diam-diam memindahkan izin |
-| AC-21 | BR-22/23, D-33 | Ubah/hapus jadwal A: hanya pemakaian nonterminal jadwal A dibatalkan, termasuk approved kolaborator; pemakaian jadwal B tetap. Batalkan seluruh proker: seluruh pemakaian nonterminal terkait dibatalkan |
+| AC-21 | BR-22/23, D-33/D-49 | Ubah/hapus jadwal A: hanya pemakaian nonterminal jadwal A dibatalkan, termasuk approved kolaborator; pemakaian jadwal B tetap. Batalkan seluruh proker sebelum pelaksanaan: seluruh pemakaian nonterminal terkait dibatalkan. Pembatalan sisa setelah sebagian terlaksana mengikuti AC-39 |
 | AC-22 | BR-25, D-33 | Edit nama atau tambah jadwal baru tidak membatalkan pemakaian jadwal lain. API menolak kaitan pemakaian ke jadwal milik proker berbeda atau kaitan proker tanpa jadwal |
 | AC-23 | BR-26 | Sisipkan kegagalan di tengah perubahan proker; jadwal, pemakaian, dan audit seluruhnya rollback |
 | AC-24 | BR-26 | Data pemakaian terkait berubah setelah pratinjau dampak; simpan menolak versi lama dan meminta konfirmasi dampak terbaru |
@@ -39,6 +39,30 @@ Semua contoh memakai organisasi/ruangan fiktif. Kriteria kritis harus diuji mela
 | AC-31 | UX_SPEC | Form dapat dipakai dengan keyboard; status tidak dibedakan hanya lewat warna; daftar kalender terbaca di HP |
 | AC-32 | ARCHITECTURE | Hasil build tidak memuat service-role key/secret; reload tautan halaman dalam Cloudflare Pages tidak menjadi 404 |
 | AC-33 | Q-01 | Pergantian hari/bulan dan jadwal melintasi tengah malam memakai zona kampus secara konsisten |
+| AC-34 | BR-32/33, D-46 | Timeline opsional dan presisi bulan tidak mengarang tanggal; pelaksanaan di luar rentang terisi meminta koreksi eksplisit. Perubahan pengerjaan saja tidak membatalkan pemakaian. Validasi campuran presisi menunggu Q-10 |
+| AC-35 | BR-04/34, D-46 | Hitung proker unik terpisah per indikator pengerjaan/pelaksanaan; filter dan kolaborasi tidak menggandakan. Rentang lintas periode tetap satu proker dengan rentang lengkap; timeline kosong ditandai. Rentang terbuka menunggu Q-10 |
+| AC-36 | BR-35/36, D-47 | Proposal belum disetujui: revisi proker sama, awal pengerjaan dipertahankan. Penundaan tanpa pengganti mengarsipkan tanggal lama dari kalender aktif, membatalkan pemakaian lama dan melepas slot secara atomik. Penolakan proposal tidak otomatis membatalkan proker |
+| AC-37 | BR-38–40, D-48 | PIC tidak dapat membuat penutupan global lewat API; BEM dapat mencatat. Semua pemakaian beririsan ditandai perlu penyesuaian tanpa mengganti status izin/proker. PIC dapat memperluas revisi sesuai haknya, tidak mengabaikan dampak wajib |
+| AC-38 | BR-39/42, Q-11 | Pengajuan/pemindahan/persetujuan saat penutupan ditolak lewat UI/API, termasuk jika berjalan bersamaan dengan pencatatan penutupan. Pembukaan kembali tidak memulihkan catatan batal/diganti atau otomatis membuktikan izin ulang. Rincian penyelesaian menunggu Q-11 |
+| AC-39 | BR-37, D-49, Q-12 | Dua sesi terlaksana dan dua dibatalkan: hasil lama serta riwayat pemakaiannya utuh, hanya sisa beserta pemakaian nonterminal terkait dibatalkan. Ringkasan selesai sebagian; tanggal lewat saja tidak membuktikan terlaksana |
+| AC-40 | BR-41/42, D-48/49 | Ganti ruang dengan waktu sama tidak mengubah pelaksanaan; izin pengganti tidak mewarisi approved. Proker lain berbarengan hanya menjadi informasi, tidak mewajibkan persetujuan BEM karena kepadatan |
+
+AC-34–AC-40 adalah target aplikasi, seluruhnya belum diuji. AC yang menunggu Q belum final untuk integrasi. Uji konkurensi dan rollback wajib mencakup penutupan, pembuatan pemakaian, revisi, serta perubahan izin melalui jalur transaksi yang sama.
+
+## Kriteria rancangan dan prototipe Timeline
+
+Rancangan ada di [TIMELINE_UX_PLAN.md](TIMELINE_UX_PLAN.md). Prototipe D-50 telah menerapkan paket UI statis; status masing-masing UX-T dan batas pemeriksaannya ada di [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md). UX-T hanya menilai presentasi skenario, bukan kebenaran aturan backend.
+
+| ID | Hasil yang direview |
+| --- | --- |
+| UX-T01 | Ringkasan memisahkan dua indikator tanpa menjumlahkan; timeline kosong/akhir belum pasti terlihat; logo dan filter konsisten pada skenario |
+| UX-T02 | Timeline baris per proker, presisi bulan, kolaborasi satu baris, lintas periode dengan penanda lanjut, serta daftar HP dapat dibaca tanpa drag |
+| UX-T03 | Kalender hanya menunjukkan pelaksanaan; rentang persiapan tidak memenuhi grid, sesi ditunda tidak muncul aktif pada tanggal lama |
+| UX-T04 | Detail memisahkan pengerjaan, pelaksanaan, izin dan perlu penyesuaian; sebagian terlaksana/ditunda/batal tidak disamakan |
+| UX-T05 | Modal revisi memperlihatkan nilai lama/baru dan dampak per sesi/ruangan; pengerjaan saja tidak membatalkan izin pada contoh; kembali mempertahankan input sementara |
+| UX-T06 | Skenario penutupan membedakan dampak wajib dan perluasan PIC; pengganti perlu izin baru, pembukaan kembali tidak otomatis memulihkan catatan |
+| UX-T07 | TL-S01–TL-S09 dapat direview, termasuk penundaan tanpa tanggal, pembatalan sebagian, konflik versi dan keadaan kosong/gagal; semuanya fixture tanpa CRUD/mesin aturan bisnis |
+| UX-T08 | Keyboard, fokus modal/dropdown, reduced motion, kontras dan 360/768/1280 px serta zoom 200% diperiksa; status tidak bergantung warna, tombol HP terjangkau |
 
 ## Kriteria prototipe UI/UX (D-39)
 

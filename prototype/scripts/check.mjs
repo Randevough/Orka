@@ -3,6 +3,40 @@ import { readFile, readdir } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { months, himaScenario } from '../src/fixtures.ts'
 import { calendarFixtures } from '../src/calendar-fixtures.ts'
+import { timelinePrograms, timelineSummary, missingTimelines } from '../src/timeline-fixtures.ts'
+import { reviewPrograms } from '../src/timeline-scenarios.ts'
+
+// Konsistensi antarfixture: indikator tidak boleh bertentangan dengan sesi/identitas proker.
+for (const [filter, programs] of Object.entries(timelinePrograms)) {
+  assert.equal(new Set(programs.map((p) => p.name)).size, programs.length)
+  assert.equal(missingTimelines[filter], programs.filter((p) => p.column === null).length)
+  assert.equal(timelineSummary[filter].length, 12)
+  if (filter === 'hima') assert.ok(programs.every((p) => p.orgIds.includes('hima')))
+  for (const p of programs) {
+    assert.ok(p.occurrences.length > 0)
+    for (const marker of p.markers ?? []) {
+      assert.ok(marker.column >= 1 && marker.column <= 12)
+      if (p.column !== null)
+        assert.ok(
+          marker.column >= p.column && marker.column < p.column + p.width,
+          `${p.name}: pelaksanaan harus tercakup pengerjaan`,
+        )
+    }
+  }
+  for (let i = 0; i < 12; i++) {
+    const working = programs.filter(
+      (p) => p.column !== null && i + 1 >= p.column && i + 1 < p.column + p.width,
+    )
+    assert.equal(timelineSummary[filter][i].work, working.length)
+    for (const p of working)
+      assert.ok(p.orgIds.every((id) => timelineSummary[filter][i].orgIds.includes(id)))
+  }
+}
+assert.equal(reviewPrograms.postponed.openEnd, true)
+assert.ok(reviewPrograms.postponed.rooms.every((r) => r.status === 'Dibatalkan'))
+assert.equal(reviewPrograms.partial.occurrences.filter((s) => s.status === 'Terlaksana').length, 2)
+assert.equal(reviewPrograms.partial.occurrences.filter((s) => s.status === 'Dibatalkan').length, 2)
+assert.ok(reviewPrograms.partial.rooms.some((r) => r.status === 'Disetujui · riwayat'))
 
 const october = calendarFixtures['2026/2027/Oktober/all']
 assert.equal(october.cells.find((day) => day.day === 18 && !day.outside).events.length, 5)

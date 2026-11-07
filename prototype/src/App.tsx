@@ -14,6 +14,12 @@ import {
 import type { OrgId } from './components/Organizations'
 import { MonthCalendar } from './features/MonthCalendar'
 import { calendarFixtures } from './calendar-fixtures'
+import { Timeline } from './features/Timeline'
+import { ProgramDialog } from './features/ProgramDialog'
+import { RoomCoordination } from './features/RoomCoordination'
+import { timelinePrograms, timelineSummary, missingTimelines } from './timeline-fixtures'
+import { reviewPrograms, reviewOptions } from './timeline-scenarios'
+import type { ProgramDetail } from './timeline-types'
 
 const periodOptions = [
   { value: '2026/2027', label: '2026 / 2027', description: 'Periode aktif' },
@@ -38,18 +44,20 @@ function MonthCard({
   onOpen,
   orgIds,
   fallback,
+  working,
 }: {
   month: MonthPreview
   onOpen: () => void
   orgIds: OrgId[]
   fallback: boolean
+  working: number
 }) {
   return (
     <button
-      className={`month-card ${month.count === 0 ? 'month-card--empty' : ''}`}
+      className={`month-card ${month.count === 0 && working === 0 ? 'month-card--empty' : ''}`}
       onClick={onOpen}
       data-month-name={month.name}
-      aria-label={`${month.name} ${month.year}, ${month.count} proker, ${month.tentative} tentatif. Buka kalender bulan.${orgIds.length ? ` Penyelenggara: ${orgIds.map((id) => organizations[id].name).join(', ')}` : ''}`}
+      aria-label={`${month.name} ${month.year}, ${working} proker dalam pengerjaan, ${month.count} ada pelaksanaan, ${month.tentative} tentatif. Buka kalender bulan.${orgIds.length ? ` Penyelenggara: ${orgIds.map((id) => organizations[id].name).join(', ')}` : ''}`}
     >
       <span className="month-card-heading">
         <span className="month-name">{month.name}</span>
@@ -59,7 +67,7 @@ function MonthCard({
         {month.count === 0 ? (
           <span className="quiet-month">
             <span className="quiet-line" />
-            <span>Belum ada proker tercatat</span>
+            <span>Belum ada pelaksanaan tercatat</span>
           </span>
         ) : (
           month.events.slice(0, 2).map((event) => (
@@ -79,6 +87,14 @@ function MonthCard({
           <span className="org-stack-caption">Penyelenggara</span>
         </span>
       )}
+      <span className="month-indicators">
+        <span>
+          <strong>{working}</strong> Dalam pengerjaan
+        </span>
+        <span>
+          <strong>{month.count}</strong> Ada pelaksanaan
+        </span>
+      </span>
       <span className="month-card-footer">
         <span className="month-count">
           {month.count} <span>proker</span>
@@ -269,18 +285,27 @@ function ComponentPreview() {
 }
 
 export function App() {
+  const [view, setView] = useState<'summary' | 'timeline' | 'calendar'>('summary')
+  const [rememberedMonth, setRememberedMonth] = useState(1)
+  const [program, setProgram] = useState<ProgramDetail | null>(null)
+  const [programEdit, setProgramEdit] = useState(false)
+  const [reviewProgram, setReviewProgram] = useState('revised')
+  const [coordination, setCoordination] = useState<'bem' | 'pic' | null>(null)
   const [modal, setModal] = useState<Modal>(null)
   const [selectedMonthIndex, setSelectedMonthIndex] = useState<number | null>(null)
   const [fallbackLogos, setFallbackLogos] = useState(false)
   const returnTarget = useRef<HTMLElement | null>(null)
   const returnScroll = useRef(0)
   const openMonth = (index: number) => {
+    setView('calendar')
+    setRememberedMonth(index)
     returnTarget.current = document.activeElement as HTMLElement
     returnScroll.current = window.scrollY
     setSelectedMonthIndex(index)
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
   const backToYear = () => {
+    setView('summary')
     setSelectedMonthIndex(null)
     requestAnimationFrame(() => {
       returnTarget.current?.isConnected
@@ -294,6 +319,12 @@ export function App() {
     })
   }
   const showEvent = (event: EventPreview) => {
+    const detail = timelinePrograms.all.find((p) => p.name === event.name)
+    if (detail) {
+      setProgram(detail)
+      setProgramEdit(false)
+      return
+    }
     setEventDetail(event)
     setModal('event')
   }
@@ -357,6 +388,28 @@ export function App() {
         </div>
       </header>
       <main id="main" tabIndex={-1} className="page-shell">
+        <div className="calendar-view-switch" role="group" aria-label="Tampilan kalender proker">
+          {(
+            [
+              ['summary', 'Ringkasan', 'grid'],
+              ['timeline', 'Timeline', 'clock'],
+              ['calendar', 'Kalender', 'calendar'],
+            ] as const
+          ).map(([value, label, icon]) => (
+            <button
+              key={value}
+              aria-pressed={view === value}
+              onClick={() => {
+                setView(value)
+                if (value === 'calendar') setSelectedMonthIndex(rememberedMonth)
+                else setSelectedMonthIndex(null)
+              }}
+            >
+              <Icon name={icon} />
+              {label}
+            </button>
+          ))}
+        </div>
         {selectedMonthIndex === null ? (
           <>
             <div className="page-eyebrow">
@@ -424,7 +477,7 @@ export function App() {
                 </span>
                 <span className="meta-description">
                   <Icon name="grid" />
-                  Ringkasan 12 bulan
+                  {view === 'timeline' ? 'Rentang pengerjaan' : 'Ringkasan 12 bulan'}
                 </span>
               </div>
               <div
@@ -457,42 +510,82 @@ export function App() {
                         <span>Belum ada proker tercatat pada periode dan filter ini.</span>
                       </div>
                     )}
-                    <div className="month-grid">
-                      {months.map((source, index) => {
-                        const fixture =
-                          filter === 'hima' ? { ...source, ...himaScenario[source.name] } : source
-                        const month = {
-                          ...fixture,
-                          year: archive ? (index < 4 ? '2025' : '2026') : fixture.year,
-                        }
-                        const shown =
-                          scenario === 'empty' || archive
-                            ? { ...month, count: 0, tentative: 0, events: [] }
-                            : month
-                        return scenario === 'loading' ? (
-                          <div className="skeleton-card" key={source.name} aria-hidden="true">
-                            <span />
+                    {view === 'timeline' ? (
+                      scenario === 'loading' ? (
+                        <div className="timeline-loading" role="status">
+                          Memuat timeline…
+                          <div className="skeleton-card" aria-hidden="true">
                             <span />
                             <span />
                             <span />
                           </div>
-                        ) : (
-                          <MonthCard
-                            key={source.name}
-                            month={shown}
-                            onOpen={() => openMonth(index)}
-                            orgIds={
-                              shown.count === 0
-                                ? []
-                                : filter === 'hima'
-                                  ? filteredMonthOrganizations[index]
-                                  : monthOrganizations[index]
+                        </div>
+                      ) : (
+                        <Timeline
+                          filter={filter}
+                          empty={archive || scenario === 'empty'}
+                          onOpen={(p) => {
+                            setProgram(p)
+                            setProgramEdit(false)
+                          }}
+                        />
+                      )
+                    ) : (
+                      <>
+                        {!archive && scenario === 'normal' && (
+                          <div className="timeline-summary-note">
+                            <Icon name="info" />
+                            <span>
+                              <strong>
+                                {missingTimelines[filter]} proker belum mengisi timeline.
+                              </strong>{' '}
+                              Pengerjaan dan pelaksanaan dihitung terpisah.
+                            </span>
+                          </div>
+                        )}
+                        <div className="month-grid">
+                          {months.map((source, index) => {
+                            const fixture =
+                              filter === 'hima'
+                                ? { ...source, ...himaScenario[source.name] }
+                                : source
+                            const month = {
+                              ...fixture,
+                              year: archive ? (index < 4 ? '2025' : '2026') : fixture.year,
                             }
-                            fallback={fallbackLogos}
-                          />
-                        )
-                      })}
-                    </div>
+                            const shown =
+                              scenario === 'empty' || archive
+                                ? { ...month, count: 0, tentative: 0, events: [] }
+                                : month
+                            return scenario === 'loading' ? (
+                              <div className="skeleton-card" key={source.name} aria-hidden="true">
+                                <span />
+                                <span />
+                                <span />
+                                <span />
+                              </div>
+                            ) : (
+                              <MonthCard
+                                key={source.name}
+                                month={shown}
+                                onOpen={() => openMonth(index)}
+                                working={
+                                  archive || scenario === 'empty'
+                                    ? 0
+                                    : timelineSummary[filter][index].work
+                                }
+                                orgIds={
+                                  archive || scenario === 'empty'
+                                    ? []
+                                    : timelineSummary[filter][index].orgIds
+                                }
+                                fallback={fallbackLogos}
+                              />
+                            )
+                          })}
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
               </div>
@@ -540,6 +633,7 @@ export function App() {
               selectedMonthIndex > 0
                 ? () => {
                     setSelectedMonthIndex(selectedMonthIndex - 1)
+                    setRememberedMonth(selectedMonthIndex - 1)
                     window.scrollTo({ top: 0, behavior: 'instant' })
                   }
                 : undefined
@@ -548,6 +642,7 @@ export function App() {
               selectedMonthIndex < 11
                 ? () => {
                     setSelectedMonthIndex(selectedMonthIndex + 1)
+                    setRememberedMonth(selectedMonthIndex + 1)
                     window.scrollTo({ top: 0, behavior: 'instant' })
                   }
                 : undefined
@@ -595,6 +690,7 @@ export function App() {
                   onChange={(value) => {
                     setScenario(value as Scenario)
                     setSelectedMonthIndex(null)
+                    if (view === 'calendar') setView('summary')
                   }}
                   options={scenarioOptions}
                 />
@@ -611,6 +707,29 @@ export function App() {
                 />
                 Uji logo fallback (kartu tahunan)
               </label>
+              <div className="timeline-review-tools">
+                <div className="field">
+                  <label htmlFor="timeline-case">Kasus timeline · tampilan PIC</label>
+                  <Select
+                    id="timeline-case"
+                    label="Kasus timeline"
+                    value={reviewProgram}
+                    onChange={setReviewProgram}
+                    options={reviewOptions}
+                  />
+                </div>
+                <Button
+                  onClick={() => {
+                    setProgram(reviewPrograms[reviewProgram])
+                    setProgramEdit(true)
+                  }}
+                >
+                  Buka alur PIC <Icon name="arrow" />
+                </Button>
+                <Button onClick={() => setCoordination('bem')}>Penutupan ruangan · BEM</Button>
+                <Button onClick={() => setCoordination('pic')}>Tindak lanjut ruangan · PIC</Button>
+                <p>Pemilih peran ini khusus review UI; bukan akses pengelolaan sungguhan.</p>
+              </div>
               <p>
                 Filter dan periode membuka skenario statis. Tidak ada query, perhitungan jadwal,
                 atau penyimpanan.
@@ -625,6 +744,26 @@ export function App() {
           <span>Rencana lebih terlihat. Koordinasi lebih dekat.</span>
         </div>
       </footer>
+      {program && (
+        <ProgramDialog
+          key={program.id}
+          program={program}
+          canEdit={programEdit}
+          archive={archive && !programEdit}
+          onClose={() => setProgram(null)}
+        />
+      )}
+      {coordination && (
+        <RoomCoordination
+          role={coordination}
+          onClose={() => setCoordination(null)}
+          onProgram={(p) => {
+            setCoordination(null)
+            setProgram(p)
+            setProgramEdit(true)
+          }}
+        />
+      )}
       {modal && (
         <Dialog
           title={
@@ -729,17 +868,23 @@ export function App() {
           {modal === 'rooms' && (
             <div className="room-preview">
               <p>
-                <strong>Ruang A Contoh · 17 Oktober 2026</strong>
+                <strong>Aula Contoh · 21 November 2026</strong>
               </p>
               <div className="room-sample">
                 <div>
                   <Icon name="clock" />
-                  <strong>09.00–11.00</strong>
+                  <strong>08.00–12.00</strong>
                 </div>
-                <h3>Forum lintas ormawa</h3>
-                <p>BEM Contoh</p>
-                <Badge tone="success">Disetujui · dilaporkan oleh PIC</Badge>
-                <p className="field-help">Diperbarui: 15 Oktober 2026</p>
+                <h3>Lokakarya tiga sesi · sesi 2</h3>
+                <p>Hima A Contoh</p>
+                <div className="status-pair">
+                  <Badge tone="success">Disetujui · dilaporkan oleh PIC</Badge>
+                  <Badge tone="warning">Perlu penyesuaian</Badge>
+                </div>
+                <p className="field-help">
+                  Aula tidak tersedia 20–22 November berdasarkan informasi kampus yang dicatat BEM.
+                  PIC menentukan penyesuaian; jadwal proker belum diubah.
+                </p>
               </div>
               <div className="feedback-panel">
                 <Icon name="info" />

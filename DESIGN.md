@@ -1,57 +1,83 @@
 # Panduan desain Orka
 
-Tanggal: 28 Oktober 2026. Arah visual: terinspirasi Cal.com, dipilih pengguna (D-38). Token dan rincian komponen di sini merupakan usulan A-14 untuk prototipe dan review visual.
+Pembaruan dokumen: 1 November 2026. Acuan aktif: **D-55 — Ultramarine + paper**. Karakter tetap clean, tegas, sedikit playful. Fase UI statis D-39; revisi ini tidak menambah logika data.
 
-Urutan D-39: tinjau desain, animasi tombol, modal, navigasi, dan seluruh keadaan tampilan dengan skenario fiktif statis terlebih dahulu. Rincian tahap dan perilaku gerak/modal ada di [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md); logika data serta integrasi layanan dikerjakan setelah fase UI/UX direview dan diminta dilanjutkan.
+Dokumen ini menjadi acuan visual aktif. Jika catatan eksplorasi atau usulan lama berbeda, gunakan keputusan D-55 di sini: netral dominan, satu aksen ultramarine, teks lebih besar, dropdown solid, dan warna status yang terkalibrasi. Detail aturan produk tetap mengikuti dokumen bisnis terkait.
 
-## Arah desain
+## Identitas visual aktif
 
-Orka memakai tampilan terang, netral, dan tertata: kanvas abu-abu sangat muda, panel putih, garis tipis, judul tegas, serta tombol utama gelap. Feedback D-41 meminta tambahan aksen kecil, dropdown custom, logo ormawa bertumpuk, dan kalender detail berwarna per ormawa. D-43 mengganti apricot dengan muted teal serta palet info/plum, warning/ochre, dan error/berry pada prototipe; revisi dropdown/logo/kalender D-44 mengikuti [UI_REVISION_PLAN.md](UI_REVISION_PLAN.md), dengan hasil di [UI_REVISION_REVIEW.md](UI_REVISION_REVIEW.md). Warna dipakai terbatas untuk aksen, identitas penyelenggara, dan status yang maknanya terpisah.
+Fondasi Cal.com tetap dipertahankan: panel putih, garis tipis, struktur sederhana. Pengguna menyederhanakan kombinasi D-54: ink blue dikeluarkan dari tinta/struktur dan varian biru lain tidak dipakai sebagai aksen tambahan. Ultramarine `#002FA7` menjadi satu biru brand, di atas paper `#F8F6F0` dan panel putih. Teks menggunakan charcoal netral `#252525`, metadata `#62615F`.
 
-Acuan utama adalah [Cal.com](https://cal.com/), berdasarkan tampilan halaman utama dan contoh panel penjadwalan yang ditinjau pada 28 Oktober 2026. Yang diadaptasi adalah karakter visual dan pemisahan panelnya. Nilai token berikut adalah usulan Orka, bukan klaim token resmi Cal.com. Logo, aset, dan salinan teks Cal.com tidak digunakan sebagai aset Orka.
+- Aksen: titik wordmark, fokus, navigasi aktif, angka penting, serta garis pendek. Tombol utama ultramarine dengan teks putih; hover memakai versi gelap dari hue yang sama.
+- Tidak ada bidang warna besar pada kalender. Semua bar memakai hue ultramarine yang sama, bidang paper yang tipis, dan garis identitas. **Nama/logo membedakan penyelenggara**, bukan lima hue biru yang berdekatan.
+- Logo brand contoh tetap multicolor dan tidak diwarnai ulang.
+- Warning memakai amber `#855C09 / #FBF3D9`, danger merah bata `#AD3438 / #FCF0EF`, info ultramarine `#002FA7 / #F0F3FC`, success hijau zaitun redup `#46614C / #F0F5EF`. Status selalu berlabel; warna bukan satu-satunya pembeda.
 
-[DESIGN_REFERENCES.md](DESIGN_REFERENCES.md) menyimpan konteks riset. Dokumen ini menjadi acuan visual aktif. [UX_SPEC.md](UX_SPEC.md) mengatur isi/interaksi, [BUSINESS_RULES.md](BUSINESS_RULES.md) mengatur perilaku, dan [ACCESS_CONTROL.md](ACCESS_CONTROL.md) mengatur kewenangan. Cakupan tetap dokumen planning.
+## Tipografi operasional
 
-## Prinsip komposisi
+Geist tetap dipakai. Teks isi/aksi utama dan dropdown default **16 px**, label **15 px**, keterangan dan badge minimal **14 px**. Token `--font-body`, `--font-label`, dan `--font-small` terpusat di tokens.css. Tidak mengecilkan teks HP menjadi 8–12 px. Judul tetap memakai hierarki 17–36 px sesuai konteks.
 
-- Konten utama dekat bagian atas: navigasi, judul, periode/filter, lalu kalender atau daftar pemakaian.
-- Panel terasa ringan dengan bingkai dan pemisah; bayangan hanya membantu membedakan lapisan.
-- Satu tindakan utama yang gelap pada setiap area kerja; tindakan lain memakai outline atau teks.
-- Judul tegas dan singkat, sedangkan nama proker dan data tetap mudah dibaca.
-- Warna status digunakan dalam bidang kecil berlabel; kalender tidak menjadi kumpulan kartu berwarna penuh.
+Saat teks membesar, ruang ikut menyesuaikan: bar kalender minimal 32 px, Timeline memakai kolom identitas 280 px dengan area waktu yang dapat digulir, dan tombol modal panjang boleh turun baris pada HP. Jangan memaksakan semua isi masuk dengan mengecilkan font.
 
-Tidak diperlukan hero pemasaran besar, ilustrasi 3D, judul arcade, neon, bayangan tombol bertingkat, atau elemen permainan. GitMastery tetap referensi proyek lain. Pilihan ini tidak menambah fitur booking otomatis, pengingat, atau sinkronisasi dari Cal.com.
+## Dropdown custom
 
-## Token warna
+- Trigger hover/terbuka: ultramarine solid, teks dan ikon garis putih.
+- Item terpilih, hover, pressed, serta highlight keyboard: ultramarine solid dengan label, deskripsi dan check putih. Logo brand tetap berwarna di wadah putih.
+- Item: teks 16 px, line-height 1,5, padding 14 px, margin vertikal 4 px, tinggi minimal 52 px. Panel padding 8 px, viewport padding vertikal 4 px.
+- Highlight keyboard memiliki garis putih di dalam item agar fokus tetap terbaca saat item terpilih juga berwarna biru. Enter/arrows/Escape/Tab dan fokus modal tetap mengikuti komponen yang ada.
+- Isi panjang membungkus; panel dibatasi viewport dan bisa digulir. Dropdown tidak memotong dialog atau menutupnya saat Escape hanya dimaksudkan menutup pilihan.
 
-| Token semantik | Nilai usulan | Peran |
+## Token warna produk
+
+Sumber implementasi: [tokens.css](prototype/src/tokens.css). Nama di bawah sama dengan variabel prototipe.
+
+| Token | Nilai | Peran |
 | --- | --- | --- |
-| `--color-page` | `#F7F7F8` | Latar halaman |
-| `--color-surface` | `#FFFFFF` | Panel, kartu, formulir, dialog |
-| `--color-surface-subtle` | `#F1F2F4` | Header panel, hover ringan, kontrol nonaktif |
-| `--color-border` | `#E1E3E7` | Bingkai dekoratif dan pemisah |
-| `--color-control-border` | `#7D8592` | Batas kontrol yang harus jelas |
-| `--color-text` | `#202124` | Teks utama |
-| `--color-text-muted` | `#596170` | Metadata dan bantuan |
-| `--color-primary` | `#242424` | Tombol utama dan tanggal terpilih |
-| `--color-primary-hover` | `#383838` | Hover tombol utama |
-| `--color-on-primary` | `#FFFFFF` | Teks/ikon di atas primary |
-| `--color-focus` | `#376E6B` | Fokus keyboard dan tautan teks; teal gelap |
-| `--color-accent` | `#4D8582` | Muted teal dekoratif |
-| `--color-accent-soft` | `#EDF6F4` | Bidang teal pucat pada navigasi/tab aktif dan ikon pengantar |
-| `--color-accent-border` | `#CFE1DD` | Bingkai dekoratif aksen |
-| `--color-info-text` / `--color-info-bg` | `#695477` / `#F4F0F7` | Informasi/rencana; plum lembut |
-| `--color-warning-text` / `--color-warning-bg` | `#786126` / `#F7F2E6` | Menunggu keputusan/peringatan; ochre redup |
-| `--color-success-text` / `--color-success-bg` | `#166534` / `#F0FDF4` | Disetujui dan hasil berhasil |
-| `--color-danger-text` / `--color-danger-bg` | `#965066` / `#FAF0F3` | Ditolak, kesalahan, dan tindakan berisiko; berry |
+| `--page` | `#F8F6F0` | Kanvas putih kertas |
+| `--surface` | `#FFF` | Panel, kartu, dialog |
+| `--subtle` | `#F3F2EE` | Hover netral |
+| `--border` | `#E4E2DD` | Garis dekoratif |
+| `--control-border` | `#7D8592` | Batas kontrol |
+| `--text` | `#252525` | Charcoal untuk teks utama |
+| `--muted` | `#62615F` | Metadata |
+| `--primary` | `#002FA7` | Tombol ultramarine |
+| `--primary-hover` | `#002581` | Hover tombol utama |
+| `--on-primary` | `#FFF` | Teks tombol utama |
+| `--focus` | `#002FA7` | Fokus keyboard |
+| `--accent` | `#002FA7` | Aksen ultramarine |
+| `--accent-soft` | `#F1F3FA` | Bidang netral untuk pilihan kecil |
+| `--accent-border` | `#D5DCF0` | Garis aksen halus |
+| `--info-text` | `#002FA7` | Teks informasi |
+| `--info-bg` | `#F0F3FC` | Bidang informasi |
+| `--warning-text` | `#855C09` | Teks peringatan |
+| `--warning-bg` | `#FBF3D9` | Bidang peringatan |
+| `--success-text` | `#46614C` | Teks disetujui/berhasil |
+| `--success-bg` | `#F0F5EF` | Bidang disetujui/berhasil |
+| `--danger-text` | `#AD3438` | Teks kesalahan/risiko |
+| `--danger-bg` | `#FCF0EF` | Bidang kesalahan/risiko |
 
-Teks utama/muted ditempatkan di atas page atau surface. Badge memakai pasangan teks/latar statusnya. Primary memakai on-primary. Border dekoratif tidak menjadi satu-satunya batas input; pakai control-border jika batas tersebut diperlukan untuk mengenali kontrol.
+Teks biasa minimal 4,5:1 dan fokus/kontrol bermakna 3:1. Token diperiksa melalui script check; UI aktual tetap perlu review pada kondisi fokus/hover/modal. Jangan menambahkan biru neon, gradient dekoratif, atau bayangan warna tanpa kebutuhan.
 
-Simpan token sebagai CSS variables terpusat saat implementasi (prototipe memakai nama singkat seperti --accent). Mode terang menjadi dasar prototipe; pengalih tema tidak diwajibkan. Palet aktif mengikuti D-43. Teks di atas bidang aksen tetap gelap; tombol utama charcoal dipertahankan dan fokus memakai teal gelap yang kontras. Informasi, warning, dan error selalu disertai label/ikon, bukan hanya warna. Identitas warna ormawa diminta melalui D-41; harus disertai nama/logo dan tidak menggantikan badge status. Dropdown custom, logo bertumpuk, dan kalender rentang telah diterapkan sebagai prototipe D-44; lihat UI_REVISION_REVIEW.md.
+## Logo dan warna ormawa
+
+Logo Google, Slack, Figma, Discord dan GitHub dipakai sebagai pengganti visual contoh (D-51). Aset lokal, sumber serta lisensi ada di [SOURCES.md](prototype/public/logos/SOURCES.md); nama/data ormawa tetap fiktif. Jangan mengganti warna internal logo mengikuti aksen Orka.
+
+Semua key kategori pada revision.css memakai ultramarine yang sama pada bidang mendekati paper. Nama class lama blue/violet/rose/ochre/teal hanya identifier internal fixture. Logo bertumpuk dan fallback mengikuti D-44; kolaborasi tetap satu kegiatan dengan semua penyelenggara.
+
+## Halaman dan interaksi lanjutan
+
+[TIMELINE_UX_PLAN.md](TIMELINE_UX_PLAN.md) mengatur pemisahan pengerjaan/pelaksanaan dan modal revisi. [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md) mencatat hasil paket statis D-50. [UI_READABILITY_REVIEW.md](UI_READABILITY_REVIEW.md) mencatat hasil D-55; PALETTE_REVIEW.md mempertahankan riwayat D-54. UX_SPEC.md mengatur isi, BUSINESS_RULES.md aturan produk, dan ACCESS_CONTROL.md kewenangan; warna tidak mengubahnya.
+
+## Referensi dan riwayat
+
+- [Centre Pompidou tentang ultramarine Yves Klein](https://www.centrepompidou.fr/en/pompidou-plus/magazine/article/the-untold-story-of-the-international-klein-blue-ikb-of-yves-klein): referensi intensitas warna; hex digital Orka adalah adaptasi.
+- [SPIN × MUBI, wawancara 2019](https://www.itsnicethat.com/articles/spin-tony-brook-efe-cakarel-graphic-design-180219): referensi identitas yang konsisten; tidak menyalin motif/logo MUBI.
+- [Dropbox Brand Color](https://brand.dropbox.com/color): pasangan biru/netral untuk riset; bukan palet aktif yang dipilih.
+- A-17–A-20 disimpan sebagai riwayat eksplorasi; bukan arahan warna aktif. Papan riset A-21 ada di [blue-references.html](prototype/design-exploration/blue-references.html). DESIGN_REFERENCES.md memuat riset awal sebelum pemilihan Cal.com.
 
 ## Tipografi, jarak, dan bentuk
 
-Font usulan: Geist Sans dengan fallback `system-ui, sans-serif`. Pilihan ini untuk keterbacaan Orka, bukan klaim font resmi Cal.com. Verifikasi lisensi dan pemuatan font saat implementasi. Tidak perlu menambah font khusus hanya untuk menyerupai logo referensi.
+Font aktif prototipe: Geist Sans, dimuat lokal melalui Fontsource, dengan fallback `system-ui, sans-serif`. Pilihan ini untuk keterbacaan Orka, bukan klaim font resmi Cal.com. Pertahankan lisensi aset font saat distribusi. Tidak perlu menambah font khusus hanya untuk menyerupai logo referensi.
 
 | Peran | Ukuran dan bobot usulan |
 | --- | --- |
@@ -59,7 +85,9 @@ Font usulan: Geist Sans dengan fallback `system-ui, sans-serif`. Pilihan ini unt
 | Judul bagian | 20–24 px; 600–700; line-height 1,3 |
 | Judul kartu | 16–18 px; 600; line-height 1,4 |
 | Isi dan input | 16 px; 400–500; line-height 1,5 |
-| Label, tombol, metadata | 14 px; 500–600; line-height 1,4–1,5 |
+| Tombol dan pilihan dropdown | 16 px; 500–600; line-height 1,5 |
+| Label formulir | 15 px; 500–600; line-height 1,5 |
+| Metadata, bantuan, badge | Minimal 14 px; 400–600; line-height 1,4–1,6 |
 
 Gunakan angka tabular pada jam/jumlah. Nama proker, penyelenggara, dan label panjang membungkus; jangan hanya menyediakan informasi penting saat hover.
 
@@ -80,11 +108,11 @@ Breakpoint usulan: di bawah 640 px untuk HP, 640–1023 px untuk tablet, mulai 1
 
 ## Kalender proker dan detail
 
-**Kalender tahunan:** judul “Kalender proker”, tahun akademik, filter ormawa, lalu 12 kartu bulan. Desktop empat kolom, tablet dua, HP satu. Urutan bulan mengikuti awal periode yang diatur BEM. Setiap kartu menyebut nama bulan dan jumlah proker, dengan penanda tentatif bila ada. A-01 tentang hitungan unik tetap menunggu keputusan terkait.
+**Kalender tahunan:** judul “Kalender proker”, tahun akademik, filter ormawa, lalu 12 kartu bulan. Desktop empat kolom, tablet dua, HP satu. Urutan bulan mengikuti awal periode yang diatur BEM. D-46 memisahkan hitungan unik “Dalam pengerjaan” dan “Ada pelaksanaan”; timeline kosong dan akhir belum pasti terlihat. Rincian tampilan mengikuti TIMELINE_UX_PLAN.md; paket statis D-50 sudah tersedia dengan hasil pada TIMELINE_UI_REVIEW.md.
 
 Kartu bulan berupa panel putih dengan header kecil, jumlah tegas, dan teks pendukung singkat. Hover memakai surface-subtle; fokus memiliki ring. Seluruh kartu boleh menjadi satu tautan yang namanya mencakup bulan dan jumlah. Hindari tombol bersarang di dalam tautan kartu. Semua bulan dapat dibuka, termasuk bulan kosong.
 
-**Detail bulan:** D-41 meminta kalender tanggal dengan blok rentang berwarna sesuai ormawa. A-15 mengusulkan halaman detail penuh dengan pilihan Kalender/Agenda, navigasi kembali, bulan/periode, filter, legenda identitas, dan modal detail proker. Kartu tahunan menampilkan logo penyelenggara dengan overlap kecil. Perilaku rentang, kolaborasi, logo/fallback, overflow, dan HP dirinci di UI_REVISION_PLAN.md. Pisahkan “Tanggal belum ditentukan” dari grid; jadwal hanya-bulan tidak diberi tanggal rekaan. Proker bersamaan tetap sah dan tidak ditampilkan sebagai konflik SDM.
+**Detail bulan:** kalender tanggal menampilkan blok rentang kegiatan. Mengikuti D-55, semua bar memakai ultramarine yang sama pada bidang mendekati paper; logo dan nama mengidentifikasi ormawa. Permintaan warna per ormawa pada D-41 menjadi riwayat. Sediakan pilihan Kalender/Agenda, navigasi kembali, bulan/periode, filter, legenda identitas, dan modal detail proker. Kartu tahunan menampilkan logo penyelenggara dengan overlap kecil. Perilaku rentang, kolaborasi, logo/fallback, overflow, dan HP dirinci di UI_REVISION_PLAN.md, dengan warna mengikuti dokumen ini. Pisahkan “Tanggal belum ditentukan” dari grid; jadwal hanya-bulan tidak diberi tanggal rekaan. Proker bersamaan tetap sah dan tidak ditampilkan sebagai konflik SDM.
 
 **Detail proker:** nama, penyelenggara, ormawa pengelola utama, jadwal, status proker, dan pemakaian ruangan terkait. Kegiatan berkolaborasi tidak digandakan. Tidak ada poster wajib, proposal, anggaran, atau daftar peserta.
 
@@ -110,7 +138,7 @@ Kepadatan proker berbeda dari status ruangan. Gunakan jumlah/penanda netral untu
 
 | Komponen | Aturan |
 | --- | --- |
-| Tombol utama | Bidang gelap, teks putih, tinggi target 44 px; label menyebut aksi seperti “Simpan proker” |
+| Tombol utama | Ultramarine `--primary`, teks putih, tinggi target minimal 44 px; label menyebut aksi seperti “Simpan proker” |
 | Tombol sekunder | Putih/outline dengan teks utama; aksi ringan boleh berupa teks |
 | Tindakan berisiko | Aksen danger dan label spesifik; dampak dijelaskan sebelum konfirmasi |
 | Input | Label terlihat, tinggi sekitar 44 px, bingkai kontrol, bantuan dan kesalahan dekat field |
@@ -122,7 +150,7 @@ Keadaan interaktif wajib: default, hover, pressed, focus-visible, disabled, load
 
 Formulir proker mendukung “Bulan saja” serta “Tanggal dan jam pasti” per jadwal. Formulir ruangan meminta waktu pasti, termasuk persiapan dan beres-beres. Kaitan proker opsional; jika dipilih wajib menunjuk jadwal terkait. Aturan 7 hari dan tanggal kedaluwarsa terlihat pada rencana/menunggu keputusan; approved tidak terkena kedaluwarsa tersebut. Tidak ada pengingat baru atau countdown dekoratif.
 
-Dialog perubahan jadwal menampilkan nama ruangan, interval, status, dan ormawa setiap pemakaian terdampak. Perubahan/penghapusan satu jadwal hanya membatalkan pemakaian nonterminal terkait jadwal itu sesuai D-33. Pembatalan seluruh proker mencakup seluruh pemakaian nonterminal terkait. Label akhir spesifik, misalnya “Batalkan 3 pemakaian terkait” (contoh fiktif). Sesudah berhasil, tampilkan instruksi koordinasi pembatalan izin melalui jalur resmi kampus.
+Dialog perubahan jadwal menampilkan nama ruangan, interval, status, dan ormawa setiap pemakaian terdampak. Perubahan/penghapusan satu jadwal hanya membatalkan pemakaian nonterminal terkait jadwal itu sesuai D-33. Pembatalan sebelum pelaksanaan mencakup seluruh pemakaian nonterminal terkait; pembatalan sisa mempertahankan sesi terlaksana dan riwayatnya (D-49). Perubahan pengerjaan saja tidak membatalkan pemakaian. Label akhir spesifik, misalnya “Batalkan 3 pemakaian terkait” (contoh fiktif). Sesudah berhasil, tampilkan instruksi koordinasi pembatalan izin melalui jalur resmi kampus.
 
 ## Akses, keadaan data, dan bahasa
 

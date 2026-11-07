@@ -4,6 +4,7 @@ import '@fontsource-variable/geist'
 import { App } from './App'
 import './styles.css'
 import './revision.css'
+import './timeline.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

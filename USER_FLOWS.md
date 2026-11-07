@@ -6,7 +6,7 @@ Setiap alur merujuk aturan di BUSINESS_RULES.md dan fitur di PRD.md.
 
 1. Buka kalender publik tanpa login.
 2. Pilih tahun akademik dan, jika perlu, filter ormawa.
-3. Lihat jumlah proker aktif per bulan.
+3. Lihat dua jumlah unik per bulan: dalam pengerjaan dan ada pelaksanaan; timeline belum diisi ditandai terpisah (D-46).
 4. Buka bulan untuk melihat nama proker, penyelenggara, dan waktu yang diketahui.
 5. Buka detail proker untuk seluruh rangkaian kegiatan serta pemakaian ruangan terkait yang boleh dibaca publik.
 
@@ -59,13 +59,36 @@ Untuk interval pengganti yang masih bertumpang tindih pada ruangan sama dengan s
 ## UF-06: memindahkan atau membatalkan proker
 
 1. PIC ormawa pengelola utama mengubah jadwal atau membatalkan proker.
-2. Untuk perubahan/penghapusan jadwal, sistem menampilkan pemakaian terkait jadwal itu saja. Untuk pembatalan proker, tampilkan seluruh pemakaian nonterminal terkait. Daftar mencakup approved dan milik penyelenggara lain.
+2. Untuk perubahan/penghapusan jadwal, tampilkan pemakaian terkait jadwal itu saja. Untuk pembatalan sebelum pelaksanaan, tampilkan seluruh pemakaian nonterminal terkait. Pembatalan sisa mempertahankan sesi terlaksana dan hanya mencakup sisa kegiatan (D-49). Daftar mencakup approved dan milik penyelenggara lain yang terdampak.
 3. PIC melihat pesan bahwa izin di kampus tidak dibatalkan otomatis.
 4. Setelah konfirmasi, perubahan proker, pembatalan pemakaian nonterminal terdampak, dan audit disimpan atomik.
 5. Jika ada perubahan data bersamaan, batalkan penyimpanan, muat ulang dampak, dan minta konfirmasi lagi.
 6. PIC mengurus koordinasi eksternal dan membuat pemakaian baru jika diperlukan.
 
 Jangan menampilkan konfirmasi untuk edit nama yang tidak mengubah jadwal. Penambahan jadwal tidak membatalkan pemakaian jadwal lain (D-33).
+
+## UF-09: merevisi pengerjaan atau menunda pelaksanaan
+
+1. PIC pengelola utama membuka detail proker dan memilih revisi pengerjaan saja atau sesi pelaksanaan. Perubahan pengerjaan saja tidak membatalkan ruangan.
+2. Jika pelaksanaan mundur, pertahankan awal pengerjaan yang sudah berjalan dan koreksi akhir secara eksplisit. Jadwal di luar timeline terisi meminta koreksi sebelum simpan.
+3. Jika pengganti belum diketahui, pilih ditunda tanpa tanggal. Proker tetap aktif, akhir pengerjaan boleh belum pasti, tanggal lama masuk riwayat.
+4. Tinjau dampak: pemakaian nonterminal terkait sesi yang ditunda/diubah dibatalkan, slot lama dilepas, sesi lain tetap. Konfirmasi dan simpan atomik pada fase data.
+5. Pengganti nanti memakai catatan izin baru. Proposal ditolak tidak otomatis membatalkan proker; PIC dapat revisi atau memilih pembatalan sesuai UF-06.
+
+## UF-10: ruangan mendadak tidak tersedia
+
+1. PIC melaporkan kendala miliknya; BEM mencatat ruangan tidak tersedia berdasarkan informasi kampus dengan rentang dan alasan operasional.
+2. BEM meninjau daftar dampak lintas ormawa sebelum konfirmasi. Pemakaian beririsan wajib ditandai perlu penyesuaian tanpa mengganti status izin; pengajuan pada waktu penutupan diblokir.
+3. PIC memilih ganti ruangan dengan waktu tetap, revisi jadwal, tunda, atau batal. PIC pengelola utama boleh memperluas revisi ke sesi lain; pemakaian terdampak wajib tidak bisa dikecualikan.
+4. Ganti ruangan memakai catatan pengganti/izin baru sesuai UF-05; jadwal tetap. Geser/tunda/batal mengikuti UF-06/09. Riwayat lama dipertahankan.
+5. Pembukaan kembali tidak memulihkan pemakaian batal/diganti. PIC memastikan ulang izin; rincian penyelesaian penanda menunggu Q-11.
+
+## UF-11: membatalkan sisa kegiatan
+
+1. PIC pengelola utama membuka proker dengan sebagian sesi sudah terlaksana. Status terlaksana tidak ditentukan hanya dari tanggal lewat; Q-12 menuntaskan mekanismenya.
+2. Pilih pembatalan sesi tersisa; sesi terlaksana tampil sebagai riwayat yang dipertahankan.
+3. Tinjau pemakaian nonterminal terkait sesi tersisa, termasuk kolaborator, dan konfirmasi pembatalan atomik pada fase data.
+4. Detail mempertahankan hasil lama dan menampilkan ringkasan “Selesai sebagian—sisa dibatalkan”.
 
 ## UF-07: rencana tetap berlaku atau kedaluwarsa
 

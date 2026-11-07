@@ -21,8 +21,8 @@ Status: usulan teknis A-08 berdasarkan kebutuhan yang disepakati. Ini spesifikas
 | profiles | user_id, display_name | Tidak publik secara default; peran tidak berasal dari field bebas edit |
 | platform_admins | user_id, granted_by, granted_at, revoked_at | Hak pengelola BEM dipisahkan dari status anggota BEM |
 | organization_memberships | id, organization_id, user_id, verified_by, verified_at, revoked_at | Kaitan akun Google resmi bersama ke ormawa; maksimal satu akun aktif per ormawa dan satu ormawa aktif per akun (D-37) |
-| organization_contacts | organization_id, whatsapp_number, consent_recorded_at | Akses publik belum diputuskan; jangan gabungkan dengan profil publik |
-| programs | id, academic_period_id, name, owner_organization_id, status, cancelled_at | Status usulan: tentative, scheduled, cancelled |
+| organization_contacts | organization_id, whatsapp_number, consent_recorded_at | D-35: hanya PIC/BEM terverifikasi; jangan gabungkan dengan profil publik |
+| programs | id, academic_period_id, name, owner_organization_id, status, cancelled_at | Status lama tentative/scheduled/cancelled perlu disempurnakan menurut D-46–D-49; jangan mencampur presisi jadwal dengan hasil proker |
 | program_organizations | program_id, organization_id | Daftar penyelenggara; pemilik wajib termasuk |
 | program_occurrences | id, program_id, precision, month, starts_at, ends_at | Satu proker memiliki banyak jadwal |
 | rooms | id, name, location_label, is_active | Tidak perlu kapasitas, tarif, atau fasilitas yang belum diminta |
@@ -38,17 +38,28 @@ D-37: user_id/actor_id merujuk akun resmi bersama untuk tindakan pengelolaan orm
 
 - precision=month: month berisi bulan kalender sebenarnya, starts_at/ends_at kosong. UI cukup menulis “Tanggal belum ditentukan”. Jika tanggal teknis menyimpan hari pertama bulan, jangan menampilkannya sebagai tanggal acara.
 - precision=exact: starts_at dan ends_at terisi dan valid; month tidak menjadi sumber kebenaran kedua. Waktu akhir wajib setelah awal.
-- Proker dapat memuat jadwal tentatif dan pasti sekaligus. Usulan status induk: tentative jika masih ada jadwal hanya-bulan, scheduled jika semua jadwal pasti, cancelled jika dibatalkan.
+- Proker dapat memuat jadwal tentatif dan pasti sekaligus. Presisi bukan status hasil; pelaksanaan bisa ditunda tanpa pengganti atau dibatalkan sebagian. Usulan lama status induk tentative/scheduled/cancelled tidak cukup untuk D-46–D-49; rancangan dimensi berikut menggantikannya, schema final belum ditetapkan.
 - Program yang dibatalkan mempertahankan seluruh jadwal untuk audit/arsip.
 - Jadwal yang melewati pergantian bulan muncul pada bulan-bulan yang bersinggungan; akhir interval eksklusif.
-- A-09: satu proker memiliki satu periode utama. Kegiatan lintas tahun akademik belum diputuskan; jangan diam-diam menggandakan proker atau membuang jadwalnya. Lihat Q-06.
+- A-09: satu proker memiliki satu periode utama. D-46 mengizinkan pengerjaan lintas periode tanpa duplikasi; kebijakan pelaksanaan lintas periode dan koreksi arsip tetap Q-06.
+
+## Tambahan konseptual timeline dan penyesuaian (A-16)
+
+Belum migration atau nama kolom final. Implementasi tetap menunggu fase data.
+
+- Rentang pengerjaan opsional pada proker menyimpan awal/akhir dengan presisi tanggal/bulan; akhir belum pasti dibedakan dari timeline seluruhnya belum diisi. Jangan mengubah bulan menjadi tanggal pasti atau mengisi akhir palsu.
+- Siklus proker aktif/dibatalkan/selesai sebagian dipisahkan dari presisi sesi dan status izin. Pencatatan sesi terlaksana memerlukan keputusan Q-12; tanggal lewat tidak cukup.
+- Sesi yang ditunda tanpa pengganti tetap punya identitas dan jejak jadwal sebelumnya; tidak perlu tanggal palsu agar lolos kolom wajib. Revisi dan pembatalan sisa mempertahankan sesi historis.
+- Catatan ruangan tidak tersedia menyimpan ruangan, rentang, sumber pencatatan BEM, alasan operasional, dan riwayat koreksi. Bentuk penutupan tumpang tindih/pencabutan menunggu Q-11.
+- Kaitan pemakaian terdampak menyimpan kondisi perlu penyesuaian terpisah dari status izin, termasuk kebutuhan memastikan ulang izin. Catatan pengganti merujuk catatan lama; penutupan tidak otomatis mengubah approved menjadi cancelled.
+- Semua jalur mutasi penutupan, pemakaian, dan persetujuan memakai koordinasi lock/transaksi ruangan yang sama. Penutupan tidak boleh kalah balapan dengan pengajuan atau persetujuan baru. Detail dirancang dan diuji pada fase data, bukan disimulasikan sebagai bukti keamanan.
 
 ## Keterkaitan dan integritas
 
 - Foreign key mencegah referensi ke ormawa, proker, ruangan, atau profil yang tidak ada.
 - organization_id pada pemakaian terkait proker harus merupakan penyelenggara proker saat catatan dibuat. Kewenangan edit pemakaian tetap mengikuti organization_id pemakaian, bukan semata pemilik proker.
 - program_id dan program_occurrence_id keduanya kosong untuk pemakaian mandiri, atau keduanya terisi dan merujuk jadwal dari proker yang sama. Tegakkan integritas ini di database. Jadwal yang dihapus dari kalender tetap dipertahankan sebagai catatan nonaktif untuk referensi dan audit.
-- Perubahan/penghapusan jadwal oleh pemilik hanya membatalkan pemakaian terkait jadwal itu, termasuk milik kolaborator; pembatalan proker membatalkan seluruh pemakaian nonterminal terkait. Transaksi khusus diaudit dan merupakan pengecualian terbatas dari hak edit pemakaian milik sendiri.
+- Perubahan/penghapusan jadwal oleh pemilik hanya membatalkan pemakaian terkait jadwal itu, termasuk milik kolaborator; pembatalan sebelum pelaksanaan membatalkan seluruh pemakaian nonterminal terkait. Pembatalan sisa mempertahankan sesi terlaksana dan pemakaian historisnya (D-49). Transaksi khusus diaudit dan merupakan pengecualian terbatas dari hak edit pemakaian milik sendiri.
 - Penghapusan penyelenggara yang masih punya pemakaian aktif harus ditolak atau diselesaikan eksplisit, bukan meninggalkan referensi tanpa pemilik.
 - Pemilik proker tidak dapat diganti melalui update umum. Transfer kepemilikan bukan fitur MVP.
 - Penonaktifan ruangan/ormawa tidak menghapus sejarah. A-07: hentikan pembuatan catatan baru; selesaikan pemakaian mendatang melalui tindakan eksplisit.

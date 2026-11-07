@@ -41,11 +41,14 @@ Cakupan awal langsung satu kampus kecil dengan kurang dari 10 ormawa. Setiap orm
 | FR-08 | Deteksi bentrokan ruangan dan penanganan laporan izin ganda | Wajib |
 | FR-09 | Konfirmasi masih direncanakan dan pembatalan otomatis 7 hari | Wajib |
 | FR-10 | Satu proker opsional terhubung ke beberapa pemakaian ruangan | Wajib |
-| FR-11 | Perubahan/penghapusan jadwal membatalkan pemakaian jadwal itu; pembatalan proker membatalkan seluruh pemakaian terkait | Wajib |
+| FR-11 | Perubahan/penghapusan jadwal membatalkan pemakaian nonterminal terkait; pembatalan sisa kegiatan mempertahankan sesi terlaksana dan riwayatnya (D-49) | Wajib |
 | FR-12 | Kontak WhatsApp PIC untuk koordinasi | Wajib; hanya PIC/BEM terverifikasi, sesuai persetujuan pemilik nomor (D-35) |
 | FR-13 | Login akun Google resmi bersama, verifikasi kaitan akun dengan ormawa oleh BEM, pencabutan akses, dan pengelolaan BEM | Wajib |
 | FR-14 | Riwayat perubahan dengan akun resmi pengubah dan waktu; tanpa klaim identitas individu pemakai akun bersama | Wajib |
 | FR-15 | Arsip periode lama dan waktu pembaruan terakhir | Wajib |
+| FR-16 | Timeline pengerjaan opsional, terpisah dari pelaksanaan; presisi tanggal/bulan, lintas periode, dan ketidakpastian terlihat (D-46) | Wajib |
+| FR-17 | Revisi, penundaan tanpa tanggal pengganti, pembatalan sebagian, serta tinjauan dampak per sesi (D-47/D-49) | Wajib |
+| FR-18 | BEM mencatat ruangan tidak tersedia berdasarkan informasi kampus; PIC melaporkan kendala miliknya dan menentukan penyesuaian; pengajuan pada waktu penutupan diblokir (D-48) | Wajib |
 
 Informasi proker cukup nama, penyelenggara, dan waktu. Jangan mewajibkan target peserta, estimasi panitia, anggaran, deskripsi panjang, atau proposal.
 

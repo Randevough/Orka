@@ -15,13 +15,15 @@ Mahasiswa dapat membaca kalender tanpa akun. Pengelolaan ormawa wajib memakai ak
 | Tambah/edit pemakaian ruangan | Tidak | Tidak | Hanya ormawa pemakai | Tidak otomatis sebagai pemberi izin |
 | Lihat kontak PIC untuk koordinasi | Tidak | Tidak | Ya, sesuai persetujuan kontak | Ya, sesuai persetujuan kontak |
 | Kelola ormawa/ruangan/periode | Tidak | Tidak | Tidak | Ya |
+| Catat/koreksi ruangan tidak tersedia berdasarkan informasi kampus | Tidak | Tidak | Tidak | Ya; detail Q-11 |
+| Laporkan kendala dan tindak lanjuti pemakaian | Tidak | Tidak | Milik sendiri; revisi proker hanya pengelola utama | Catat penutupan dan bantu koordinasi, bukan pemberi izin |
 | Verifikasi/cabut PIC | Tidak | Tidak | Tidak | Ya |
 | Lihat audit operasional | Tidak | Tidak | Data yang menjadi kewenangannya | Seluruh data operasional yang perlu ditinjau |
 | Buka laporan bentrokan izin | Tidak | Tidak | Pemakaian milik sendiri | Bantu meninjau |
 | Selesaikan peninjauan sengketa | Tidak | Tidak | Koordinasi dan koreksi milik sendiri | Catat hasil; hak koreksi langsung menunggu Q-05 |
 | Ubah/hapus audit | Tidak | Tidak | Tidak | Tidak |
 
-Perubahan/penghapusan jadwal membatalkan hanya pemakaian terkait jadwal itu lewat fungsi khusus, termasuk pemakaian penyelenggara kolaborasi lain. Pembatalan seluruh proker membatalkan seluruh pemakaian nonterminal terkait. Fungsi wajib memeriksa kepemilikan proker dan mencatat dampak setiap pemakaian. Hak ini tidak memberi PIC akses edit umum ke pemakaian ormawa lain.
+Perubahan/penghapusan jadwal membatalkan hanya pemakaian terkait jadwal itu lewat fungsi khusus, termasuk pemakaian penyelenggara kolaborasi lain. Pembatalan seluruh proker sebelum pelaksanaan membatalkan seluruh pemakaian nonterminal terkait; pembatalan sisa mempertahankan sesi terlaksana dan riwayatnya (D-49). Fungsi wajib memeriksa kepemilikan proker dan mencatat dampak setiap pemakaian. Hak ini tidak memberi PIC akses edit umum ke pemakaian ormawa lain. Penutupan BEM menandai semua pemakaian terdampak melalui jalur khusus; PIC tidak dapat menghapus dampak wajib atau membuka kembali ruang secara global (D-48).
 
 ## Pelaksanaan otorisasi
 

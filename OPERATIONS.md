@@ -9,7 +9,8 @@ Dokumen ini menjelaskan kebutuhan operasional yang harus disiapkan. Akun, backup
 - Terapkan kontak WhatsApp hanya untuk PIC/BEM terverifikasi (D-35) dan catat persetujuan pemilik kontak.
 - Jelaskan bahwa kalender tidak otomatis berisi jadwal kuliah/kegiatan non-ormawa dan status approved adalah laporan PIC.
 - Jelaskan rencana belum disetujui batal setelah 7 hari tanpa pembaruan; tidak ada pengingat.
-- Jelaskan perubahan/penghapusan jadwal hanya membatalkan pemakaian terkait jadwal itu; pembatalan proker membatalkan seluruh pemakaian nonterminal terkait. Koordinasi izin tetap di luar aplikasi.
+- Jelaskan perubahan/penghapusan jadwal hanya membatalkan pemakaian terkait jadwal itu; pembatalan sebelum pelaksanaan membatalkan seluruh pemakaian nonterminal terkait. Pembatalan sisa mempertahankan sesi terlaksana dan riwayatnya (D-49). Perubahan pengerjaan saja tidak membatalkan ruangan. Koordinasi izin tetap di luar aplikasi.
+- Jelaskan peran BEM mencatat ruangan tidak tersedia berdasarkan informasi kampus dan PIC menindaklanjuti pemakaian perlu penyesuaian. Pembukaan kembali tidak otomatis memulihkan izin/catatan batal; prosedur rinci menunggu Q-11 sebelum pilot fitur ini.
 - Tetapkan jalur laporan kesalahan atau sengketa di luar aplikasi; kontaknya menunggu penunjukan BEM.
 
 ## Pengelolaan rutin

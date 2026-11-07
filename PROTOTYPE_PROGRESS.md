@@ -58,4 +58,8 @@ Revisi aksen D-42: apricot/peach diterapkan terbatas pada navigasi aktif, ikon p
 
 ## Berikutnya setelah review paket ini
 
+Palet aktif kini ultramarine + ink blue melalui D-54. Rujuk [PALETTE_REVIEW.md](PALETTE_REVIEW.md) dan DESIGN.md untuk nilai serta pemeriksaan terbaru; rasio/warna paket terdahulu di atas tetap catatan historis.
+
+Pembaruan D-50: paket Timeline, detail proker, revisi, dan skenario penutupan/tindak lanjut ruangan sudah tersedia. Review terbaru mengikuti [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md); hasil lama di dokumen ini tetap catatan paket pertama.
+
 Revisi kalender/dropdown/logo D-44 telah tersedia; prioritaskan review hasil pada UI_REVISION_REVIEW.md. Halaman pemakaian ruangan serta formulir produk, lalu kelola ormawa/BEM menyusul sesuai tahap 2–4. Integrasi data tetap menunggu review UI/UX dan instruksi terkait.

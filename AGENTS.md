@@ -10,6 +10,12 @@ Dokumen ini berada dalam paket planning. Jika paket dipindah ke repositori aplik
 
 ## Otorisasi saat ini
 
+D-55 menggantikan palet D-54 dengan ultramarine + paper, tipografi lebih besar, dropdown solid dan kalibrasi status. Acuan aktif DESIGN.md dan UI_READABILITY_REVIEW.md; catatan D-54 di bawah adalah riwayat.
+
+D-54 mengizinkan penerapan ultramarine + ink blue pada prototipe. Palet aktif dan batasnya mengikuti DESIGN.md/PALETTE_REVIEW.md; D-43 menjadi riwayat warna, bukan token aktif.
+
+D-50 mengizinkan paket prototipe Timeline dan penyesuaian berdasarkan TIMELINE_UX_PLAN.md. Hasil parsial dan batasnya ada di TIMELINE_UI_REVIEW.md; tetap tanpa integrasi data, persistence, atau mesin aturan bisnis di browser.
+
 Pemilik produk telah mengizinkan prototipe UI/UX (D-40), perubahan palet D-43, serta revisi dropdown custom/logo bertumpuk/kalender detail (D-44), dengan contoh statis di prototype/. Ikuti batas fase D-39. Jangan membuat integrasi data, migration SQL, proyek cloud, atau deployment hanya karena roadmap memuatnya. Lanjutkan cakupan lain ketika diminta.
 
 ## Saat implementasi sudah diminta

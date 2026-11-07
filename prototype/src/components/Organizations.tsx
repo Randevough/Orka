@@ -1,11 +1,41 @@
 import { useState } from 'react'
 
 export const organizations = {
-  bem: { name: 'BEM Contoh', initials: 'BM', color: 'blue', logo: '/logos/bem.svg' },
-  hima: { name: 'Hima A Contoh', initials: 'HA', color: 'violet', logo: '/logos/hima.svg' },
-  himab: { name: 'Hima B Contoh', initials: 'HB', color: 'rose', logo: '/logos/himab.svg' },
-  sport: { name: 'UKM Olahraga Contoh', initials: 'OR', color: 'ochre', logo: '/logos/sport.svg' },
-  art: { name: 'UKM Seni Contoh', initials: 'SN', color: 'teal', logo: '/logos/art.svg' },
+  bem: {
+    name: 'BEM Contoh',
+    initials: 'BM',
+    color: 'blue',
+    logo: '/logos/google.svg',
+    brand: 'Google',
+  },
+  hima: {
+    name: 'Hima A Contoh',
+    initials: 'HA',
+    color: 'violet',
+    logo: '/logos/slack.svg',
+    brand: 'Slack',
+  },
+  himab: {
+    name: 'Hima B Contoh',
+    initials: 'HB',
+    color: 'rose',
+    logo: '/logos/figma.svg',
+    brand: 'Figma',
+  },
+  sport: {
+    name: 'UKM Olahraga Contoh',
+    initials: 'OR',
+    color: 'ochre',
+    logo: '/logos/discord.svg',
+    brand: 'Discord',
+  },
+  art: {
+    name: 'UKM Seni Contoh',
+    initials: 'SN',
+    color: 'teal',
+    logo: '/logos/github.svg',
+    brand: 'GitHub',
+  },
 } as const
 export type OrgId = keyof typeof organizations
 
@@ -61,7 +91,7 @@ export function OrgLogo({
   const [failed, setFailed] = useState(false)
   return (
     <span
-      className={`org-logo org-${org.color}`}
+      className={`org-logo org-${org.color} ${forceFallback || failed ? '' : 'org-logo--brand'}`}
       role={label ? 'img' : undefined}
       aria-label={label ? `${org.name}, logo contoh` : undefined}
       aria-hidden={label ? undefined : true}

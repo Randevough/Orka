@@ -1,6 +1,8 @@
 # Rencana pengerjaan Orka
 
-Revisi: 28 Oktober 2026. Urutan mengikuti D-39: desain dan UX interaktif terlebih dahulu, kemudian integrasi data dan aturan bisnis. D-40 kini mengizinkan paket pertama prototipe UI; lihat [PROTOTYPE_PROGRESS.md](PROTOTYPE_PROGRESS.md). Roadmap tidak otomatis mengizinkan perluasan ke backend, layanan cloud, atau deployment. Tidak ada estimasi hari yang disepakati.
+Pembaruan D-50: implementasi paket UI Timeline kini diminta dan tersedia secara statis; lihat [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md). Pernyataan belum diizinkan coding pada catatan rancangan sebelumnya di bawah sudah digantikan D-50 untuk paket ini. Integrasi data tetap belum diminta.
+
+Revisi: 31 Oktober 2026. Urutan mengikuti D-39: desain dan UX interaktif terlebih dahulu, kemudian integrasi data dan aturan bisnis. D-40 mengizinkan paket pertama prototipe UI; lihat [PROTOTYPE_PROGRESS.md](PROTOTYPE_PROGRESS.md). Rancangan lanjutan D-46–D-49 ada di [TIMELINE_UX_PLAN.md](TIMELINE_UX_PLAN.md); permintaan terbaru hanya merancang, belum coding paket tersebut. Roadmap tidak otomatis mengizinkan perluasan ke backend, layanan cloud, atau deployment. Tidak ada estimasi hari yang disepakati.
 
 ## Tujuan dan urutan
 
@@ -59,6 +61,8 @@ Mulai kode setelah ada instruksi membuat prototipe. Pusatkan token warna, tipogr
 
 ## Tahap 2 — Halaman publik
 
+Paket berikutnya yang dirancang setelah D-44/D-45: ringkasan dua indikator → Timeline pengerjaan/daftar HP → detail proker → modal revisi/dampak → penutupan ruangan dan tindak lanjut PIC → review UX-T01–UX-T08. Ikuti TIMELINE_UX_PLAN.md dan D-46–D-49. Urutan ini melengkapi tahap 2–4, bukan izin mulai kode atau implementasi mesin aturan bisnis. Semua dampak/hitungan/rentang pada prototipe memakai fixture yang disiapkan, bukan dihitung dari input pengguna.
+
 Feedback D-41 menempatkan revisi kalender sebagai paket berikutnya sebelum perluasan UI lain: aksen kecil → dropdown custom → logo bertumpuk → halaman kalender bulan/rentang berwarna → review responsif/aksesibilitas. Ikuti [UI_REVISION_PLAN.md](UI_REVISION_PLAN.md), termasuk kriteria UX-R. D-44 kini mengizinkan implementasi revisi prototipe ini; hasilnya ada di [UI_REVISION_REVIEW.md](UI_REVISION_REVIEW.md).
 
 1. Kalender proker tahunan: 12 kartu bulan, periode, filter dengan contoh hasil statis.
@@ -109,7 +113,7 @@ Periksa seluruh halaman dengan konten panjang, skenario berbeda, viewport 360/76
 
 ## Tahap 5 — Fondasi database dan akses
 
-Konfirmasi Q yang memblokir fitur terkait: definisi A-01/A-02/A-04, zona waktu, pengganti beririsan, kewenangan sengketa BEM, bootstrap admin. Keputusan lain menyusul sesuai tenggatnya. Siapkan migration, entitas, Google Auth D-36/D-37, verifikasi akun resmi, RLS, audit, jalur transaksi dan constraint sesuai ARCHITECTURE. Gunakan data fiktif pada lingkungan pengembangan; jangan mengaktifkan mutasi UI sebelum penegakan database siap.
+Konfirmasi Q yang memblokir fitur terkait: definisi A-02/A-04, zona waktu, pengganti beririsan, kewenangan sengketa BEM, bootstrap admin, serta Q-06/Q-10–Q-12 untuk timeline/penutupan/hasil sesi. Hitungan unik telah D-46. Keputusan lain menyusul sesuai tenggatnya. Siapkan migration, entitas, Google Auth D-36/D-37, verifikasi akun resmi, RLS, audit, jalur transaksi dan constraint sesuai ARCHITECTURE. Gunakan data fiktif pada lingkungan pengembangan; jangan mengaktifkan mutasi UI sebelum penegakan database siap.
 
 **Pintu selesai:** AC-25/26/27/30 lulus melalui database/API nyata; akses lintas ormawa, promosi diri, dan sesi dicabut ditolak. Ketersediaan akun Google resmi divalidasi sebelum pilot.
 
@@ -122,6 +126,8 @@ Konfirmasi Q yang memblokir fitur terkait: definisi A-01/A-02/A-04, zona waktu, 
 | 6C | Konfirmasi → kedaluwarsa → Cron idempoten → proyeksi jika Cron terlambat; tata kelola BEM dan arsip | AC-15–AC-19 dan AC-28; izin/tanggal terkait juga diverifikasi |
 
 Setiap urutan menghubungkan UI hasil review dengan database, hak akses, dan pengujian relevan. Ganti skenario statis dengan hasil layanan nyata pada alur itu. Pemilih skenario/peran prototipe tidak masuk aplikasi operasional. Sukses simulasi tidak menjadi fallback kegagalan jaringan.
+
+D-46–D-49 menambah target AC-34–AC-40 pada integrasi 6A/6B: timeline dan ketidakpastian, penundaan, pembatalan sebagian, penutupan ruangan dan konflik bersamaan. Batas Q terkait harus selesai sebelum alur tersebut diintegrasikan. Roadmap ini tidak mengizinkan migration atau integrasi sekarang.
 
 ## Tahap 7 — Verifikasi akhir dan pilot
 

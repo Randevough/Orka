@@ -30,7 +30,7 @@
 | D-24 | Slot tanpa data dilabeli belum ada pemakaian tercatat, tetap perlu cek resmi |
 | D-25 | Koordinasi lewat kontak WhatsApp PIC; tidak perlu diskusi internal aplikasi |
 | D-26 | Perubahan data oleh PIC langsung tampil tanpa pemeriksaan BEM terlebih dahulu |
-| D-27 | Jika proker dibatalkan, semua pemakaian ruangan nonterminal terkait dibatalkan otomatis. Perubahan jadwal mengikuti penyempurnaan D-33 |
+| D-27 | Jika proker dibatalkan, semua pemakaian ruangan nonterminal terkait dibatalkan otomatis. Perubahan jadwal mengikuti D-33; pembatalan sisa setelah sebagian terlaksana disempurnakan D-49 agar riwayat terlaksana dipertahankan |
 | D-28 | Data/arsip tetap milik ormawa. Verifikasi akun resmi, pencabutan kewenangan, dan serah terima pengurus mengikuti D-37 |
 | D-29 | Uji coba satu bulan, seluruh ormawa mengisi dan memperbarui; evaluasi bentrokan bersama |
 | D-30 | Stack akhir React + Vite + Supabase + Cloudflare Pages; pilihan Next.js/MongoDB ditinggalkan |
@@ -81,13 +81,63 @@ Pengguna meminta penerapan rencana yang dibuat sebelum percobaan warna: dropdown
 
 Pengguna meminta seluruh teks preview/pratinjau dan penanda data dummy yang mengganggu tampilan dihilangkan, karena pengembangan hanya dilakukan olehnya. Banner, keterangan dialog/detail, dan penanda footer dihapus dari tampilan utama; status fixture/dummy tetap dicatat pada dokumentasi pengembangan. Ini bukan perubahan dari prototipe menjadi aplikasi operasional atau izin integrasi data. Nama organisasi fiktif tetap memakai penamaan Contoh.
 
-Pengguna menegaskan proker dan rapat berbeda, menyoroti kepadatan proker lintas ormawa, memberi contoh timeline 12 Juni–12 Oktober, dan meminta sesi grilling sebelum memilih enhancement berikutnya. Rentang jadwal kegiatan lintas bulan sudah dirancang, sedangkan lifecycle persiapan/pelaksanaan terpisah belum. Makna timeline, cakupan rapat, serta prioritas enhancement masih menunggu jawaban pengguna; belum ada perubahan model/aturan bisnis berdasarkan asumsi.
+Pengguna menegaskan proker dan rapat berbeda, menyoroti kepadatan proker lintas ormawa, memberi contoh timeline 12 Juni–12 Oktober, dan meminta sesi grilling sebelum memilih enhancement berikutnya. Hasil discovery lanjutan dicatat pada D-46–D-49 di bawah; belum diimplementasikan.
 
-## A: usulan yang belum menjadi keputusan pengguna
+## D-46: pengerjaan terpisah dari pelaksanaan
+
+Pengguna memilih enhancement timeline proker lebih dahulu. Satu rentang pengerjaan opsional mencakup persiapan sampai akhir pengerjaan, tanpa fase/tugas rinci; boleh presisi bulan atau tanggal. Pelaksanaan tetap berupa sesi terpisah. Ringkasan bulanan membedakan “Dalam pengerjaan” dan “Ada pelaksanaan”, dengan jumlah proker unik dan tanpa ambang kepadatan/konflik SDM. Timeline yang belum diisi disebut eksplisit. Timeline publik cukup nama, ormawa, dan waktu; rapat tetap sebatas pemakaian ruangan.
+
+Tampilan Timeline berbaris per proker terpisah dari Kalender pelaksanaan. Rentang boleh lintas periode, tetap satu proker dengan rentang lengkap dan penanda lanjut pada potongan tampilan. Rentang terisi harus mencakup pelaksanaan; tanggal pelaksanaan yang keluar rentang meminta koreksi eksplisit. Perubahan pengerjaan saja tidak membatalkan ruangan. Ini tidak menyelesaikan seluruh kebijakan arsip/pelaksanaan lintas periode Q-06.
+
+## D-47: penundaan dan proposal
+
+Proposal belum disetujui: pertahankan proker aktif dan revisi jadwal, dengan awal pengerjaan yang sudah berjalan tetap tercatat. Penundaan tanpa pengganti diperbolehkan: pelaksanaan berlabel ditunda, tanggal lama masuk riwayat, akhir pengerjaan boleh belum pasti. Pemakaian tanggal lama dibatalkan dan slot dilepas. Jika proposal akhirnya ditolak, PIC memilih revisi atau pembatalan; tidak ada alur persetujuan proposal di aplikasi. Kebijakan pelepasan slot dan pilihan revisi/pembatalan dipilih agent atas delegasi pengguna “pilih semua berdasarkan logic bisnis” lalu dirangkum dalam percakapan.
+
+## D-48: ruangan tidak tersedia dan keputusan PIC
+
+BEM mencatat ruangan tidak tersedia berdasarkan informasi kampus; PIC melaporkan kendala miliknya. Pemakaian terdampak berlabel “Perlu penyesuaian”, pengajuan baru pada waktu penutupan dicegah; proker tetap aktif. PIC menentukan ganti ruang, geser jadwal, tunda, atau batal sesuai kasus, dan boleh memperluas penyesuaian ke sesi lain. Pemakaian langsung terdampak tetap wajib ditandai; aturan wajib ini dipilih agent melalui delegasi yang sama. Pengganti memakai catatan izin baru; riwayat lama disimpan. Pembukaan kembali memerlukan PIC memastikan ulang izin, tanpa memulihkan catatan dibatalkan/diganti otomatis. Penutupan bukan kewenangan BEM memberi/mencabut izin kampus.
+
+## D-49: pembatalan sebagian dan kepadatan
+
+Jika sebagian sesi sudah terlaksana, pertahankan hasilnya dan batalkan sisa sesi beserta pemakaian terkait; ringkasan “Selesai sebagian—sisa dibatalkan”. Jadwal pengganti yang berbarengan dengan proker lain tetap boleh, dengan informasi kepadatan; larangan mengikuti aturan ruangan, bukan kapasitas SDM.
+
+Pada 31 Oktober 2026 pengguna meminta rancangan terlebih dahulu. [TIMELINE_UX_PLAN.md](TIMELINE_UX_PLAN.md) merinci layar, modal, skenario, dan urutan paket UI. Permintaan ini bukan instruksi coding, integrasi, atau deployment.
+
+## D-50: implementasikan prototipe timeline dan penyesuaian
+
+Pada 31 Oktober 2026 pengguna meminta “proceed” setelah rancangan D-46–D-49 disimpan. Otorisasi mencakup prototipe UI statis: ringkasan dua indikator, Timeline, detail proker, modal revisi/dampak, serta skenario penutupan BEM dan tindak lanjut PIC. Batas D-39 tetap berlaku. Hasil serta pemeriksaan parsial UX-T ada di [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md). Tidak mencakup integrasi data atau deployment.
+
+## D-51: logo brand nyata dan eksplorasi tone teal
+
+Pengguna meminta logo Google, Slack, dan brand lain menggantikan logo ormawa contoh. Aset Google/Slack/Figma/GitHub dari koleksi Devicon dan simbol Discord dari halaman brand resmi disimpan lokal; identitas data ormawa tetap fiktif. Pengguna kemudian menegaskan tetap ingin keluarga teal dengan tone lain yang lebih berkarakter. Logo diterapkan; warna produk belum diganti. Pilihan tone dan jumlah warna bar/status masih dibahas melalui A-17.
+
+Pengguna selanjutnya memilih netral dominan dengan sedikit warna: logo tetap berwarna, bar kalender tipis dan konsisten, badge mengutamakan ikon/teks dan sedikit warna. Tone teal final dan nilai warna status belum dipilih; perubahan token produk masih menunggu pemilihan tone.
+
+## D-52: keluar dari keluarga teal
+
+Setelah membandingkan tiga tone teal, pengguna meminta eksplorasi warna di luar keluarga teal. Ini menggantikan arah eksplorasi teal D-51. Netral dominan, sedikit warna, dan logo brand tetap berlaku. A-17 menjadi riwayat; alternatif non-teal A-18 belum dipilih dan token produk belum diganti.
+
+## D-53: eksplorasi keluarga blue
+
+Pengguna membolehkan arah keluarga blue dan sekitarnya, lalu meminta alternatif lebih lanjut. Tetap clean, tegas, sedikit playful, netral dominan dan warna solid yang dipakai hemat. Cornflower Blue, Azure Blue, dan Indigo Blue adalah A-20 untuk dibandingkan; belum ada pilihan hue final atau penerapan token baru.
+
+## D-54: terapkan kombinasi ultramarine dan ink blue
+
+Pengguna menyukai kombinasi ultramarine dan ink blue dari papan riset, lalu meminta “coba make it works”. Terapkan pada prototipe: ultramarine untuk aksen/fokus, ink blue untuk teks/tombol/struktur, panel putih dan kanvas netral. Agent memilih token rinci dan menenangkan warna ormawa serta status sesuai preferensi netral dominan, warna sedikit. Logo brand tetap multicolor. D-54 menggantikan palet aktif D-43; rincian implementasi ada di DESIGN.md dan pemeriksaan pada PALETTE_REVIEW.md. Tidak mencakup integrasi data atau deployment.
+
+## D-55: ultramarine + paper, tipografi lebih besar dan dropdown solid
+
+Pengguna menilai banyak teks terlalu kecil, memilih ultramarine + paper agar biru tidak terlalu banyak dicampur, meminta hover/active dropdown biru solid dengan teks putih dan jarak vertikal item yang lega, serta kalibrasi ulang kuning/merah/info. D-55 menggantikan kombinasi ink blue D-54 sebagai palet aktif. Implementasi memakai teks charcoal, satu hue ultramarine pada UI/bar, status amber/merah bata/info ultramarine, dan skala teks operasional 14/15/16 px. Penyelenggara dibedakan melalui nama/logo; warna kategori lama tidak lagi menjadi pembeda. Hasil pada UI_READABILITY_REVIEW.md. Tetap prototipe tanpa integrasi data.
+
+## A: daftar usulan
+
+Pembaruan D-53: A-20 juga belum disukai karena terlalu umum/kurang khas. Pengguna belum memiliki brand acuan dan meminta agent mencari referensi internet. A-21 membandingkan ultramarine/putih kertas, core palette Dropbox, dan pelajaran motif identitas MUBI; semuanya usulan, belum persetujuan hue atau bentuk.
+
+Pembaruan D-52: pengguna menolak pula ketiga opsi pastel A-18. Vibe yang dipilih adalah clean, tegas, sedikit playful; masalah utama pilihan sebelumnya adalah terlalu pastel/pucat. A-17/A-18 dipertahankan sebagai riwayat; A-19 adalah eksplorasi aktif. Belum ada hue final atau izin penerapan palet baru.
 
 | ID | Usulan | Alasan |
 | --- | --- | --- |
-| A-01 | Hitung proker unik per bulan; batalkan dari hitungan aktif | Menghindari kolaborasi dan banyak jadwal menggandakan kepadatan |
+| A-01 | Hitungan unik sudah ditegaskan melalui D-46; pisahkan pengerjaan dan pelaksanaan | Detail rentang akhir belum pasti tetap Q-10 |
 | A-02 | Interval [mulai, selesai) | Acara berurutan tanpa jeda tambahan tetap bisa dicatat; persiapan sudah termasuk |
 | A-03 | Transisi status seperti BUSINESS_RULES; status terminal dibuat ulang jika diperlukan | Riwayat jelas dan pemulihan rencana tidak tersembunyi |
 | A-04 | 7 hari = 168 jam; konfirmasi setelah lewat ditolak | Membuat batas waktu konsisten untuk backend dan UI |
@@ -102,6 +152,12 @@ Pengguna menegaskan proker dan rapat berbeda, menyoroti kepadatan proker lintas 
 | A-13 | Bootstrap admin pertama secara manual; admin BEM aktif mengelola penerus lewat jalur terkontrol | Tidak membuka pendaftaran admin publik |
 | A-14 | Token, tipografi, layout responsif, dan komponen dalam DESIGN.md | Adaptasi acuan Cal.com (D-38) ke kalender proker dan pemakaian ruangan; tinjau lewat prototipe |
 | A-15 | Rincian UI_REVISION_PLAN.md: logo 28 px overlap 6 px maksimal empat, detail bulan berupa halaman, warna pengelola utama untuk kolaborasi, overflow tiga bar, Senin–Minggu, default Agenda pada HP | Diterapkan pada prototipe melalui D-44 untuk review; palet aktif mengikuti D-43, detail visual masih dapat direvisi |
+| A-16 | Susunan layar, penanda presisi/rentang terbuka, modal revisi bertahap, pemisahan kondisi pemakaian dari izin, dan rancangan konseptual dalam TIMELINE_UX_PLAN.md | Terjemahan D-46–D-49 untuk review; belum implementasi atau keputusan schema final |
+| A-17 | Petrol Teal, Lagoon Teal, atau Evergreen Teal serta pengurangan bidang warna; perbandingan pada DESIGN.md dan prototype/design-exploration/teal-options.html | Menjawab permintaan karakter teal baru; belum diterapkan pada token produk |
+| A-18 | Iris, Butter Yellow, atau Dusty Rose; perbandingan pada DESIGN.md dan prototype/design-exploration/accent-options.html | Eksplorasi aktif setelah penolakan keluarga teal D-52; belum keputusan warna final |
+| A-19 | Cobalt Blue, Signal Red, atau Acid Lime dengan aksen solid terbatas dan panel netral; prototype/design-exploration/bold-options.html | Mengikuti pilihan clean, tegas, sedikit playful; A-17/A-18 sudah ditolak, A-19 belum dipilih |
+| A-20 | Cornflower Blue, Azure Blue, Indigo Blue; prototype/design-exploration/blue-options.html | Eksplorasi aktif mengikuti keluarga blue D-53; token produk belum diganti |
+| A-21 | Riset ultramarine Yves Klein, pasangan warna Dropbox, dan motif identitas SPIN × MUBI; prototype/design-exploration/blue-references.html | Alternatif A-20 belum cocok; mencari karakter dari pasangan warna dan penanda sendiri. Nilai yang bukan token sumber diberi label usulan Orka |
 
 ## Q: pertanyaan terbuka
 
@@ -114,14 +170,17 @@ Ini daftar pekerjaan review, bukan permintaan agar pengguna menjawab semuanya se
 | Q-03 | Selesai: kontak hanya untuk PIC/BEM terverifikasi dengan persetujuan pemilik nomor (D-35) | Sudah diputuskan | Terapkan pembatasan pada database/API |
 | Q-04 | Bagaimana pengganti ruangan yang sebagian beririsan dengan slot approved lama? Cakupan pembatalan jadwal sudah diputuskan D-33 | Sebelum implementasi pengganti beririsan | Tanpa pengecualian constraint approved |
 | Q-05 | Siapa admin BEM pertama/penerus dan apakah BEM boleh mengoreksi status langsung saat sengketa? | Sebelum fitur admin/sengketa final | Bootstrap terkontrol; PIC mengoreksi miliknya, BEM mencatat hasil |
-| Q-06 | Apakah proker bisa melintasi tahun akademik? Sampai kapan periode lama dapat dikoreksi? | Sebelum fitur lintas periode/arsip final | Periode utama tunggal; jangan membuang jadwal di luar rentang tanpa keputusan |
-| Q-07 | Setuju dengan definisi hitungan unik, interval berdampingan, dan 168 jam pada A-01/A-02/A-04? | Review aturan sebelum implementasi terkait | Pakai untuk contoh/prototipe; belum keputusan pengguna |
+| Q-06 | Pengerjaan lintas periode sudah diizinkan D-46. Bagaimana pelaksanaan lintas periode dan batas koreksi arsip? | Sebelum integrasi lintas periode/arsip | Jangan menggandakan proker atau membuang jadwal; aturan arsip belum final |
+| Q-07 | Hitungan unik sudah D-46. Setuju dengan interval berdampingan dan 168 jam pada A-02/A-04? | Review aturan sebelum implementasi terkait | Pakai untuk contoh/prototipe; dua definisi waktu belum keputusan pengguna |
 | Q-08 | Siapa pemegang akun layanan, pemulih akses, dan penanggung jawab pencadangan? | Sebelum membuat layanan/pilot | Kepemilikan yang bisa diteruskan; tidak hanya satu akun pribadi tanpa penerus |
 | Q-09 | Acuan Cal.com sudah dipilih (D-38). Apakah rincian A-14 sesuai saat review prototipe; bagaimana logo, nama domain, dan perangkat prioritas final? | Sebelum desain visual final | DESIGN.md sebagai draf; Bahasa Indonesia, web responsif, alamat bawaan hosting |
+| Q-10 | Bagaimana hitungan pengerjaan per bulan saat akhir belum pasti, serta validasi campuran presisi bulan/tanggal? | Sebelum integrasi hitungan/validasi timeline | Tampilkan ketidakpastian, jangan isi semua bulan mendatang atau mengarang tanggal; fixture review eksplisit |
+| Q-11 | Bagaimana rentang/penutupan tumpang tindih, koreksi/pencabutan oleh BEM, serta konfirmasi izin ulang dan pelepasan penanda penyesuaian? | Sebelum integrasi ruangan tidak tersedia | Penutupan memblokir pengajuan; riwayat dan status izin lama terpisah; tidak ada pemulihan otomatis |
+| Q-12 | Bagaimana PIC mencatat sesi benar-benar terlaksana dan koreksi historisnya? | Sebelum integrasi hasil pelaksanaan | Jangan menyimpulkan terlaksana hanya karena tanggal lewat; prototipe memakai skenario eksplisit |
 
 ## Risiko yang perlu diuji
 
-Pertanyaan discovery tambahan setelah D-45: apakah rentang 12 Juni–12 Oktober mencakup persiapan hingga pelaksanaan atau kegiatan yang berlangsung terus; apakah rapat tetap cukup dicatat sebagai pemakaian ruangan atau perlu agenda tersendiri; dan enhancement mana yang diprioritaskan. Keputusan turunan tentang fase, indikator kepadatan, serta tampilan timeline menunggu jawaban tersebut.
+Discovery setelah D-45 sudah menghasilkan D-46–D-49. Pertanyaan turunan yang belum diputuskan dibatasi pada Q-06 dan Q-10–Q-12; tidak menahan rancangan visual dengan skenario eksplisit.
 
 - PIC tidak memperbarui: kalender tidak lengkap dan rencana batal otomatis. Jelaskan proses sebelum pilot.
 - Tanpa verifikasi kampus/bukti: status approved tetap laporan PIC, bukan bukti legal peminjaman.

@@ -25,6 +25,10 @@ Memberi manusia dan AI agent acuan yang sama untuk membangun kalender proker dan
 13. [PROTOTYPE_PROGRESS.md](PROTOTYPE_PROGRESS.md): hasil, pemeriksaan, dan batas paket UI pertama.
 14. [UI_REVISION_PLAN.md](UI_REVISION_PLAN.md): planning feedback D-41 untuk aksen, dropdown custom, logo ormawa bertumpuk, dan kalender detail rentang berwarna.
 15. [UI_REVISION_REVIEW.md](UI_REVISION_REVIEW.md): hasil penerapan revisi D-44 dan batas pemeriksaan paket kalender terbaru.
+16. [TIMELINE_UX_PLAN.md](TIMELINE_UX_PLAN.md): rancangan pengerjaan vs pelaksanaan, penundaan, pembatalan sebagian, serta ruangan tidak tersedia (D-46–D-49).
+17. [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md): hasil implementasi UI statis D-50, cara mencoba alur PIC/BEM, bukti, dan batas pemeriksaan.
+18. [PALETTE_REVIEW.md](PALETTE_REVIEW.md): riwayat penerapan ultramarine + ink blue D-54, kontras, dan bukti visual sebelum revisi D-55.
+19. [UI_READABILITY_REVIEW.md](UI_READABILITY_REVIEW.md): palet aktif D-55 ultramarine + paper, pembesaran teks, dropdown solid dan kalibrasi status. Catatan D-54 sebelumnya menjadi riwayat.
 
 ## Cara membaca status keputusan
 

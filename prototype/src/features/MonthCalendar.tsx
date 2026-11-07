@@ -158,7 +158,9 @@ export function MonthCalendar({
           ) : (
             <span>Belum ada penyelenggara tercatat pada bulan ini.</span>
           )}
-          <span className="legend-note">Warna menunjukkan ormawa, bukan status izin.</span>
+          <span className="legend-note">
+            Logo menunjukkan penyelenggara; label menunjukkan status izin.
+          </span>
         </div>
         {view === 'calendar' ? (
           <>
