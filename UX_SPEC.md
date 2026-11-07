@@ -1,5 +1,11 @@
 # Spesifikasi halaman dan interaksi
 
+Pembaruan D-58: Kelola platform/BEM, status hak pengelola, akun/ormawa, ruangan, periode/arsip dan peninjauan tersedia sebagai prototipe. Hasil dan batas pada PLATFORM_UI_REVIEW.md. Tidak ada pemberian izin kedua atau koreksi langsung status pihak lain.
+
+Pembaruan D-57: paket Kelola ormawa/PIC telah tersedia sebagai simulasi UI; lihat MANAGE_UI_REVIEW.md. Formulir edit informasi/tambah sesi terpisah dari revisi jadwal yang memerlukan tinjauan dampak.
+
+Pembaruan D-56: agenda/detail ruangan dan formulir PIC sampai hasil simulasi tersedia; cara mencoba dan batas pada ROOMS_UI_REVIEW.md. Pilihan tanggal/filter memakai contoh statis; belum ada integrasi atau validasi bisnis.
+
 Pembaruan visual aktif D-55: ultramarine + paper, teks operasional 14/15/16 px, dropdown hover/active biru solid dengan teks putih. Bar tidak lagi memakai hue berbeda per ormawa; nama/logo dan legenda mengenali penyelenggara. Ini menyempurnakan rincian warna D-41 tanpa mengubah jadwal, kolaborasi, atau aturan izin. Lihat DESIGN.md dan UI_READABILITY_REVIEW.md.
 
 Status: usulan A-10. Nama produk adalah Orka (D-32). Dokumen ini menjelaskan isi dan perilaku halaman. Acuan visual Cal.com dipilih pengguna (D-38); token dan komponen di [DESIGN.md](DESIGN.md) merupakan usulan A-14 yang perlu ditinjau pada prototipe.

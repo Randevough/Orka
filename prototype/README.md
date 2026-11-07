@@ -49,4 +49,18 @@ Semua nama, hitungan, dan jadwal adalah fiktif. Input hanya sementara. Tombol si
 
 Revisi D-44 menambahkan dropdown custom Radix Select, logo SVG fiktif bertumpuk/fallback, dan halaman kalender bulan berwarna dengan rentang, overflow tanggal, serta Agenda untuk HP. Oktober memuat skenario lintas minggu/bulan dan tanggal padat; April memuat kolaborasi. Kalender detail memakai fixture statis; script authoring `scripts/generate-calendar-fixtures.mjs` menyiapkan contoh secara offline dan tidak dimuat browser. Jalankan script tersebut hanya ketika memperbarui fixture contoh, lalu format dan periksa ulang hasilnya.
 
-Halaman ruangan lengkap, formulir produk lengkap, kelola PIC/BEM, serta login nyata belum dibuat. Tampilan publik ini tidak membuktikan otorisasi, pencegahan bentrokan, atau pembatalan atomik. Lihat [hasil paket pertama](../PROTOTYPE_PROGRESS.md) dan [hasil revisi kalender](../UI_REVISION_REVIEW.md).
+Paket agenda/detail/formulir ruangan D-56 sudah tersedia untuk review. Paket kelola PIC D-57 tersedia; kelola BEM D-58 tersedia; login nyata masih menyusul. Tampilan publik ini tidak membuktikan otorisasi, pencegahan bentrokan, atau pembatalan atomik. Lihat [hasil paket pertama](../PROTOTYPE_PROGRESS.md) dan [hasil revisi kalender](../UI_REVISION_REVIEW.md).
+
+## Pemakaian ruangan (D-56)
+
+Pilih Pemakaian ruangan pada navigasi. Agenda/detail dapat dibuka publik. Formulir simulasi tersedia di Ruang uji UI → Buka formulir pemakaian · PIC. Filter membuka dataset contoh; hasil tinjauan mengikuti skenario review, bukan input. Simpan tidak mengubah daftar. Lihat ../ROOMS_UI_REVIEW.md untuk pemeriksaan dan batas.
+
+
+## Kelola ormawa/PIC (D-57)
+
+Masuk → Masuk dengan Google → Buka kelola ormawa membuka simulasi Hima A. Ruang uji akses pada dialog masuk dan Ruang uji UI di Kelola menyediakan variasi contoh. Tab Proker/Pemakaian ruangan/Riwayat serta formulir bisa ditinjau tanpa menyimpan atau mengirim data. Lihat [MANAGE_UI_REVIEW.md](../MANAGE_UI_REVIEW.md) untuk cakupan dan pemeriksaan.
+
+
+## Kelola platform/BEM (D-58)
+
+Masuk → Ruang uji akses → Skenario masuk → Pengelola platform BEM → Masuk dengan Google → Buka kelola platform. Semua pilihan hanya simulasi. Tindak lanjut, akun/ormawa, ruangan, periode/arsip, peninjauan dan riwayat dapat direview. Tidak ada perubahan akses atau data nyata. Lihat [PLATFORM_UI_REVIEW.md](../PLATFORM_UI_REVIEW.md).

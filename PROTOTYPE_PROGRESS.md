@@ -1,5 +1,11 @@
 # Hasil paket pertama UI/UX Orka
 
+Status terbaru D-58: tiga paket UI (ruangan, kelola PIC, kelola platform/BEM) tersedia untuk review lokal. PLATFORM_UI_REVIEW.md memuat hasil terbaru dan batas pengujian. Fase UI/UX keseluruhan belum dinyatakan selesai.
+
+Status terbaru D-57: Kelola ormawa/PIC, tambah/edit proker, pemakaian dan riwayat tersedia untuk review. Rincian pemeriksaan dan batas ada pada MANAGE_UI_REVIEW.md. Fase UI/UX keseluruhan belum selesai.
+
+Status terbaru 7 November 2026: paket pemakaian ruangan D-56 tersedia untuk review; lihat ROOMS_UI_REVIEW.md. Isi di bawah adalah riwayat paket pertama. Fase UI/UX keseluruhan masih belum selesai.
+
 Tanggal: 28 Oktober 2026. Acuan D-38/D-39/D-40 dan tahap 0–2 IMPLEMENTATION_PLAN.md. Status: fondasi komponen dan kalender tahunan tersedia untuk review; fase UI/UX keseluruhan belum selesai dan belum siap integrasi data.
 
 Kode berada di [prototype/](prototype/README.md), terpisah dari dokumen planning. Dokumen tetap di akar paket ini; paket planning belum dipindah ke repositori aplikasi lain. Bila kelak dipindah, ikuti instruksi penempatan docs/ pada AGENTS.md.

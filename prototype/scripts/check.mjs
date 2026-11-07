@@ -149,3 +149,89 @@ for (const match of revisionCss.matchAll(/\.org-(blue|violet|rose|ochre|teal)\s*
   assert.ok(ratio >= 4.5, `Kontras identitas ${match[1]}: ${ratio.toFixed(2)}`)
   console.log(`Ormawa ${match[1]}: ${ratio.toFixed(2)}:1`)
 }
+
+// Dataset ruangan dipilih statis; pastikan filter tidak menampilkan catatan yang salah.
+const { usageExamples, roomViews } = await import('../src/room-fixtures.ts')
+assert.equal(new Set(usageExamples.map((item) => item.id)).size, usageExamples.length)
+assert.deepEqual(
+  new Set(usageExamples.map((item) => item.status)),
+  new Set(['planned', 'pending', 'approved', 'rejected', 'cancelled']),
+)
+for (const [key, indices] of Object.entries(roomViews)) {
+  const [week, room, org] = key.split(':')
+  assert.equal(new Set(indices).size, indices.length)
+  for (const index of indices) {
+    const item = usageExamples[index]
+    assert.ok(item, `Catatan tersedia: ${key}/${index}`)
+    if (room !== 'all') assert.equal(item.room, room)
+    if (org !== 'all') assert.equal(item.org, org)
+    assert.equal(index < 5, week === 'week1', 'Rentang contoh tidak bercampur')
+  }
+}
+assert.ok(usageExamples.some((item) => item.adjustment && item.status === 'approved'))
+assert.ok(usageExamples.some((item) => item.dispute && item.status === 'pending'))
+console.log('Lulus: cakupan status dan konsistensi dataset/filter ruangan statis.')
+
+// Vérifikasi hubungan fixture tampilan PIC; bukan bukti penegakan hak akses.
+const { managedPrograms, managedUsages } = await import('../src/manage-fixtures.ts')
+assert.equal(new Set(managedPrograms.map((item) => item.program.id)).size, managedPrograms.length)
+for (const item of managedPrograms) {
+  assert.ok(
+    item.program.orgIds.includes('hima'),
+    'Daftar PIC hanya memuat milik sendiri/kolaborasi',
+  )
+  if (item.editable)
+    assert.equal(item.program.orgIds[0], 'hima', 'Kolaborator bukan pengelola utama')
+}
+assert.ok(managedPrograms.some((item) => item.program.orgIds[0] !== 'hima' && !item.editable))
+assert.equal(new Set(managedUsages.map((item) => item.usage.id)).size, managedUsages.length)
+for (const item of managedUsages) {
+  assert.equal(item.usage.org, 'hima')
+  if (item.confirmable || item.reportable)
+    assert.ok(['planned', 'pending'].includes(item.usage.status))
+  if (['rejected', 'cancelled'].includes(item.usage.status)) {
+    assert.equal(item.confirmable, false)
+    assert.equal(item.reportable, false)
+    assert.equal(item.cancellable, false)
+  }
+}
+console.log('Lulus: konsistensi kepemilikan dan tindakan pada fixture PIC.')
+
+// Konsistensi dataset BEM; bukan tes otorisasi atau deteksi bentrokan nyata.
+const {
+  platformOrganizations,
+  organizationViews,
+  platformRooms,
+  platformPeriods,
+  disputeUsages,
+  archivedPrograms,
+  archivedUsages,
+} = await import('../src/platform-fixtures.ts')
+assert.equal(
+  new Set(platformOrganizations.map((item) => item.id)).size,
+  platformOrganizations.length,
+)
+assert.equal(
+  new Set(platformOrganizations.map((item) => item.email)).size,
+  platformOrganizations.length,
+)
+assert.ok(platformOrganizations.every((item) => item.email.endsWith('@akun.invalid')))
+for (const [status, indices] of Object.entries(organizationViews)) {
+  assert.equal(new Set(indices).size, indices.length)
+  for (const index of indices) {
+    assert.ok(platformOrganizations[index])
+    if (status !== 'all') assert.equal(platformOrganizations[index].status, status)
+  }
+}
+assert.equal(new Set(platformRooms.map((item) => item.id)).size, platformRooms.length)
+assert.ok(platformRooms.some((item) => item.id === 'aula' && item.closure))
+assert.equal(platformPeriods.filter((item) => item.status === 'active').length, 1)
+assert.equal(new Set(platformPeriods.map((item) => item.id)).size, platformPeriods.length)
+assert.equal(disputeUsages.length, 2)
+assert.notEqual(disputeUsages[0].org, disputeUsages[1].org)
+assert.equal(disputeUsages[0].room, disputeUsages[1].room)
+assert.equal(disputeUsages[0].date, disputeUsages[1].date)
+assert.equal(disputeUsages[0].time, disputeUsages[1].time)
+assert.equal(disputeUsages.filter((item) => item.status === 'approved').length, 1)
+assert.ok(archivedPrograms.length && archivedUsages.length)
+console.log('Lulus: dataset BEM, filter akun, periode, sengketa dan arsip contoh.')

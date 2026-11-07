@@ -129,6 +129,18 @@ Pengguna menyukai kombinasi ultramarine dan ink blue dari papan riset, lalu memi
 
 Pengguna menilai banyak teks terlalu kecil, memilih ultramarine + paper agar biru tidak terlalu banyak dicampur, meminta hover/active dropdown biru solid dengan teks putih dan jarak vertikal item yang lega, serta kalibrasi ulang kuning/merah/info. D-55 menggantikan kombinasi ink blue D-54 sebagai palet aktif. Implementasi memakai teks charcoal, satu hue ultramarine pada UI/bar, status amber/merah bata/info ultramarine, dan skala teks operasional 14/15/16 px. Penyelenggara dibedakan melalui nama/logo; warna kategori lama tidak lagi menjadi pembeda. Hasil pada UI_READABILITY_REVIEW.md. Tetap prototipe tanpa integrasi data.
 
+## D-56: lanjut paket UI pemakaian ruangan
+
+Pada 7 November 2026, pengguna menyetujui rencana tiga paket UI melalui instruksi “gas”: pemakaian ruangan → kelola ormawa/PIC → kelola platform/BEM. Pengerjaan dimulai dari paket pemakaian ruangan untuk review lokal: agenda publik, detail, formulir dan tinjauan sampai hasil simulasi. Tetap mengikuti D-39 dan palet D-55, tanpa integrasi data, penyimpanan, Auth nyata atau deployment. Hasil paket pertama dicatat pada ROOMS_UI_REVIEW.md; paket berikutnya belum dinyatakan selesai.
+
+## D-57: lanjut paket Kelola ormawa/PIC
+
+Pada 7 November 2026, pengguna meminta “Lanjut” setelah paket ruangan D-56. Paket berikutnya mengikuti rencana yang telah disetujui: Kelola ormawa/PIC, status akses, tambah/edit proker, pemakaian, konfirmasi dan riwayat. Dialog revisi/koordinasi yang ada dipakai ulang. Hasil statis dicatat pada MANAGE_UI_REVIEW.md; bukan izin membuat Auth nyata, database atau deployment. Paket BEM tetap berikutnya.
+
+## D-58: lanjut paket Kelola platform/BEM
+
+Pada 7 November 2026, pengguna meminta “lanjut” setelah paket Kelola ormawa/PIC D-57. Pengerjaan mengikuti paket ketiga yang sudah disetujui: pengelolaan BEM, akun/ormawa, ruangan, periode/arsip, peninjauan dan riwayat. Hasil prototipe tercatat pada PLATFORM_UI_REVIEW.md. Permintaan ini tidak menetapkan Q-05/Q-06/Q-11, tidak mengizinkan layanan/data nyata, dan tidak menyatakan seluruh fase UI/UX lulus.
+
 ## A: daftar usulan
 
 Pembaruan D-53: A-20 juga belum disukai karena terlalu umum/kurang khas. Pengguna belum memiliki brand acuan dan meminta agent mencari referensi internet. A-21 membandingkan ultramarine/putih kertas, core palette Dropbox, dan pelajaran motif identitas MUBI; semuanya usulan, belum persetujuan hue atau bentuk.

@@ -1,5 +1,11 @@
 # Rencana pengerjaan Orka
 
+Pembaruan 7 November 2026 (D-58): paket BEM tersedia; lihat PLATFORM_UI_REVIEW.md. Langkah berikutnya review menyeluruh tiga paket dan penyempurnaan UI/aksesibilitas, sebelum menyatakan siap integrasi. Tahap database/integrasi belum dimulai.
+
+Pembaruan 7 November 2026 (D-57): paket Kelola ormawa/PIC tersedia untuk review; lihat MANAGE_UI_REVIEW.md. Berikutnya UI Kelola platform/BEM. Belum masuk tahap database/integrasi.
+
+Pembaruan 7 November 2026 (D-56): paket UI pemakaian ruangan tersedia untuk review lokal; lihat ROOMS_UI_REVIEW.md. Berikutnya kelola ormawa/PIC lalu BEM. Fase UI/UX keseluruhan belum selesai; batas integrasi data tetap berlaku.
+
 Pembaruan D-50: implementasi paket UI Timeline kini diminta dan tersedia secara statis; lihat [TIMELINE_UI_REVIEW.md](TIMELINE_UI_REVIEW.md). Pernyataan belum diizinkan coding pada catatan rancangan sebelumnya di bawah sudah digantikan D-50 untuk paket ini. Integrasi data tetap belum diminta.
 
 Revisi: 31 Oktober 2026. Urutan mengikuti D-39: desain dan UX interaktif terlebih dahulu, kemudian integrasi data dan aturan bisnis. D-40 mengizinkan paket pertama prototipe UI; lihat [PROTOTYPE_PROGRESS.md](PROTOTYPE_PROGRESS.md). Rancangan lanjutan D-46–D-49 ada di [TIMELINE_UX_PLAN.md](TIMELINE_UX_PLAN.md); permintaan terbaru hanya merancang, belum coding paket tersebut. Roadmap tidak otomatis mengizinkan perluasan ke backend, layanan cloud, atau deployment. Tidak ada estimasi hari yang disepakati.

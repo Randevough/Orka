@@ -1,5 +1,11 @@
 # Instruksi bagi AI agent
 
+D-58 melanjutkan paket Kelola platform/BEM. Hasil verifikasi/pencabutan akun, ruangan, periode, arsip dan peninjauan ada pada PLATFORM_UI_REVIEW.md. Tiga paket UI tersedia untuk review; belum ada kelulusan seluruh UX-P atau izin integrasi/deployment.
+
+D-57 melanjutkan paket Kelola ormawa/PIC. Hasil prototipe akun/akses, proker, pemakaian, konfirmasi dan riwayat ada pada MANAGE_UI_REVIEW.md. Paket BEM menyusul; batas tanpa integrasi data tetap berlaku.
+
+D-56 mengizinkan kelanjutan paket UI: pemakaian ruangan, kelola ormawa/PIC, lalu BEM. Paket ruangan tersedia untuk review pada ROOMS_UI_REVIEW.md. Tetap tanpa integrasi data/persistence/Auth nyata/deployment.
+
 ## Konteks kerja
 
 Nama proyek dan produk adalah Orka (D-32).

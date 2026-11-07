@@ -63,3 +63,17 @@ Instruksi terbaru pemilik produk mengungguli dokumen. Jika perubahan memengaruhi
 - Dua rapat pada hari yang sama sah selama ruangan berbeda atau interval waktunya tidak bertabrakan.
 - Masa kedaluwarsa 7 hari hanya untuk rencana pemakaian ruangan yang belum disetujui, bukan proker.
 - D-40 mengizinkan paket pertama prototipe UI/UX tanpa data nyata. Pembuatan akun layanan, integrasi backend, dan publikasi belum diminta.
+
+## Paket UI ruangan terbaru
+
+Paket D-56: agenda pemakaian ruangan, detail, formulir PIC dan tinjauan simulasi. Panduan review dan batasnya ada pada [ROOMS_UI_REVIEW.md](ROOMS_UI_REVIEW.md). Kelola ormawa/BEM masih menyusul.
+
+
+## Paket Kelola ormawa/PIC
+
+Paket D-57 tersedia untuk review lokal: masuk simulasi, status akses, dashboard ormawa, proker, pemakaian dan riwayat. Lihat [MANAGE_UI_REVIEW.md](MANAGE_UI_REVIEW.md). Paket Kelola platform/BEM tersedia melalui D-58; lihat PLATFORM_UI_REVIEW.md.
+
+
+## Paket Kelola platform/BEM
+
+D-58 melengkapi prototipe pengelolaan akun/ormawa, ruangan, periode, arsip dan peninjauan. [PLATFORM_UI_REVIEW.md](PLATFORM_UI_REVIEW.md) mencatat cara mencoba serta batasnya. Tiga paket UI tersedia untuk review, tanpa backend atau deployment.

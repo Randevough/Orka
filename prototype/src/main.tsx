@@ -11,3 +11,6 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+import './rooms.css'
+import './manage.css'
+import './platform.css'
